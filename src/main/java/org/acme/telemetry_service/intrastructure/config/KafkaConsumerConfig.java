@@ -19,7 +19,7 @@ import static org.apache.kafka.clients.consumer.ConsumerConfig.VALUE_DESERIALIZE
 class KafkaConsumerConfig {
 
     @Bean
-    ConsumerFactory<String, String> consumerFactory() {
+    ConsumerFactory<String, Object> consumerFactory() {
         final Map<String, Object> configs =
           Map.of(BOOTSTRAP_SERVERS_CONFIG, "bootstrapAddress",
                  GROUP_ID_CONFIG, "groupId",
