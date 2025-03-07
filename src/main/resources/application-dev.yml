@@ -15,7 +15,7 @@ logging:
     root: DEBUG
     org.acme.telemetry_service: DEBUG
     # org.hibernate.SQL: DEBUG
-    com.zaxxer.hikari.HikariConfig: INFO
+    # com.zaxxer.hikari.HikariConfig: INFO
     #org.springframework.orm.jpa: INFO
     #org.springframework.jdbc.core: DEBUG
-    org.springframework.transaction: INFO
+    # org.springframework.transaction: INFO
