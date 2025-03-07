@@ -1,8 +1,22 @@
 services:
+  db:
+    container_name: telemetry-db-server
+    hostname: localhost
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: telemetry-db-server
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+
   broker:
     image: apache/kafka:latest
     hostname: broker
-    container_name: broker
+    container_name: telemetry-kafka-server
     ports:
       - 9092:9092
     environment:
@@ -21,3 +35,6 @@ services:
       KAFKA_CONTROLLER_LISTENER_NAMES: CONTROLLER
       KAFKA_LOG_DIRS: /tmp/kraft-combined-logs
       CLUSTER_ID: MkU3OEVBNTcwNTJENDM2Qk
+
+volumes:
+  pgdata:
