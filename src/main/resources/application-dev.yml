@@ -1,3 +1,21 @@
 spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/telemetry-db-server
+    username: root
+    password: root
+  jpa:
+    properties:
+      hibernate:
+        generate_statistics: true
   kafka:
     bootstrap-servers: localhost:9092
+
+logging:
+  level:
+    root: DEBUG
+    org.acme.telemetry_service: DEBUG
+    # org.hibernate.SQL: DEBUG
+    com.zaxxer.hikari.HikariConfig: INFO
+    #org.springframework.orm.jpa: INFO
+    #org.springframework.jdbc.core: DEBUG
+    org.springframework.transaction: INFO

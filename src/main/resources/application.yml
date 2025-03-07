@@ -1,2 +1,78 @@
+server:
+  shutdown: graceful
+  error:
+    whitelabel.enabled: false
+    include-message: always
+  servlet:
+    encoding:
+      force: true
+  forward-headers-strategy: framework
+  http2:
+    enabled: true
+
 spring:
-  application.name: telemetry-service
+  application:
+    name: telemetry-service
+  threads:
+    virtual:
+      enabled: true
+  liquibase:
+    change-log: classpath:/db/changelog/changelog-master.yml
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: validate
+  lifecycle:
+    timeout-per-shutdown-phase: 80s
+  mvc:
+    contentnegotiation:
+      media-types:
+        defaultContentType:
+          application/json
+  autoconfigure:
+    exclude: org.springframework.boot.autoconfigure.web.servlet.error.ErrorMvcAutoConfiguration
+
+logging:
+  level:
+    root: INFO
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+      base-path: /
+      path-mapping:
+        health: health
+        info: info
+  endpoint:
+    metrics:
+      enabled: true
+    health:
+      group:
+        liveness:
+          include: livenessState,diskSpace
+        readiness:
+          include: readinessState,ping,db
+      probes:
+        enabled: true
+      show-details: always
+  health:
+    livenessstate:
+      enabled: true
+    readinessstate:
+      enabled: true
+
+springdoc:
+  show-login-endpoint: true
+  show-actuator: true
+  paths-to-match: /accounts, /login, /health, /info, /health/liveness, /health/readiness
+  swagger-ui:
+    path: /swagger-ui.html
+    display-request-duration: true
+    disable-swagger-default-url: true
+    operationsSorter: method
+    url: /v3/api-docs
+    config-url: /v3/api-docs/swagger-config
+  default-consumes-media-type: ${spring.mvc.contentnegotiation.media-types.defaultContentType}
+  default-produces-media-type: ${spring.mvc.contentnegotiation.media-types.defaultContentType}

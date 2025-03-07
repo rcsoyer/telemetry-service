@@ -1,0 +1,79 @@
+databaseChangeLog:
+  - changeSet:
+      id: accountv1
+      author: rcsoyer
+      changes:
+        - createTable:
+            tableName: account
+            remarks: Represents a User's Account data in the system
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: first_name
+                  type: varchar(60)
+                  constraints:
+                    nullable: false
+                  remarks: The first name of a person
+              - column:
+                  name: last_name
+                  type: varchar(60)
+                  constraints:
+                    nullable: false
+                  remarks: The last name of a person
+              - column:
+                  name: initials
+                  type: varchar(10)
+                  constraints:
+                    nullable: false
+                  remarks: The initials of a Person's name
+              - column:
+                  name: username
+                  type: varchar(50)
+                  constraints:
+                    unique: true
+                    nullable: false
+                  remarks: unique username of an user in the platform
+              - column:
+                  name: password
+                  type: varchar(150)
+                  constraints:
+                    nullable: false
+                  remarks: the encrypted password of the user's account
+              - column:
+                  name: birth_date
+                  type: date
+                  constraints:
+                    nullable: false
+                  remarks: The birth day of the person
+              - column:
+                  name: id_document
+                  type: varchar(150)
+                  constraints:
+                    nullable: false
+                  remarks: an ID Document of a person
+              - column:
+                  name: date_created
+                  type: datetime(6)
+                  constraints:
+                    nullable: false
+                  remarks: The date time of when this Account was created
+              - column:
+                  name: date_modified
+                  type: datetime(6)
+                  remarks: The date time of when this Account was last modified
+              - column:
+                  name: created_by
+                  type: varchar(50)
+                  constraints:
+                    nullable: false
+                  remarks: The user that created this Account
+              - column:
+                  name: modified_by
+                  type: varchar(50)
+                  remarks: The user that last modified this Account
