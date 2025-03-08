@@ -2,7 +2,7 @@ plugins {
     id 'java'
     id 'org.springframework.boot' version '3.4.3'
     id 'io.spring.dependency-management' version '1.1.7'
-    id 'io.freefair.lombok' version '8.10'
+    id 'io.freefair.lombok' version '8.12.2.1'
 }
 
 group = 'org.acme'
@@ -24,12 +24,12 @@ repositories {
 }
 
 ext {
-    mapStructVersion = '1.6.0'
-    passWayVersion = '1.6.4'
+    mapStructVersion = '1.6.3'
+    passWayVersion = '1.6.6'
     problemVersion = '0.29.1'
     problemJacksonVersion = '0.27.1'
     jjwtVersion = '0.12.6'
-    springdocVersion = '2.6.0'
+    springdocVersion = '2.8.5'
 }
 
 dependencies {
@@ -72,8 +72,9 @@ tasks.named('test') {
 }
 
 compileJava {
-    options.compilerArgs.add("-Amapstruct.defaultComponentModel=spring")
-    options.compilerArgs.add("-Amapstruct.unmappedTargetPolicy=IGNORE")
+    options.compilerArgs.addAll(
+            "-Amapstruct.defaultComponentModel=spring",
+            "-Amapstruct.unmappedTargetPolicy=IGNORE")
 }
 
 springBoot.buildInfo()
