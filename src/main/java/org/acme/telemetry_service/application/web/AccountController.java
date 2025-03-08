@@ -32,8 +32,7 @@ class AccountController {
     @PostMapping
     @ResponseStatus(CREATED)
     @Operation(summary = "Register a new account",
-      description = "This operation registers a new unique client's Account into the system. " +
-                      "<br/> This automatically creates a new Payments Bank Account with a default balance ")
+      description = "This operation registers a new unique client's Account into the system.")
     @ApiResponse(responseCode = "201", description = "Account successfully registered")
     @ApiResponse(responseCode = "400", description = "Invalid input data",
       content = @Content(mediaType = "application/problem+json",
@@ -43,6 +42,6 @@ class AccountController {
         schema = @Schema(implementation = Problem.class)))
     AccountRegisterResponse register(@RequestBody @Valid final AccountRegisterRequest request) {
         log.debug("Rest API call to register a new Account");
-        return service.openAccount(request);
+        return service.createAccount(request);
     }
 }
