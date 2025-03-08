@@ -13,7 +13,7 @@ class TestcontainersConfiguration {
     @Container
     private static final KafkaContainer KAFKA_CONTAINER = new KafkaContainer(
       DockerImageName.parse("apache/kafka:latest")
-    );
+    ).withReuse(true);
 
     @DynamicPropertySource
     private static void overrideProperties(final DynamicPropertyRegistry registry) {
