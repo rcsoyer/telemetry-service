@@ -14,6 +14,7 @@ import org.springframework.kafka.core.DefaultKafkaConsumerFactory;
 import org.springframework.kafka.support.converter.RecordMessageConverter;
 import org.springframework.kafka.support.converter.StringJsonMessageConverter;
 import org.springframework.kafka.support.mapping.DefaultJackson2JavaTypeMapper;
+import org.springframework.kafka.support.serializer.ErrorHandlingDeserializer;
 import org.springframework.kafka.support.serializer.JsonDeserializer;
 
 import static org.apache.kafka.clients.consumer.ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG;
@@ -28,20 +29,11 @@ class KafkaConsumerConfig {
     @Bean
     RecordMessageConverter multiTypeConverter() {
         final var typeMapper = new DefaultJackson2JavaTypeMapper();
-        typeMapper.setTypePrecedence(INFERRED);
+        //typeMapper.setTypePrecedence(INFERRED);
         typeMapper.addTrustedPackages("org.acme.telemetry_service.domain.dto.command");
         final var messageConverter = new StringJsonMessageConverter();
         messageConverter.setTypeMapper(typeMapper);
         return messageConverter;
-    }
-
-    @Bean
-    ConsumerFactory<String, Object> consumerFactory(final KafkaProperties properties) {
-        final Map<String, Object> configs =
-          Map.of(BOOTSTRAP_SERVERS_CONFIG, properties.getBootstrapServers(),
-                 KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class,
-                 VALUE_DESERIALIZER_CLASS_CONFIG, JsonDeserializer.class);
-        return new DefaultKafkaConsumerFactory<>(configs);
     }
 
     @Bean
