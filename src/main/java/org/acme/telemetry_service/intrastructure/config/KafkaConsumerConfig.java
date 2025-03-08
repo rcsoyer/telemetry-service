@@ -2,6 +2,7 @@ package org.acme.telemetry_service.intrastructure.config;
 
 import java.util.Map;
 import org.apache.kafka.common.serialization.StringDeserializer;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.kafka.KafkaProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -46,7 +47,7 @@ class KafkaConsumerConfig {
     @Bean
     ConcurrentKafkaListenerContainerFactory<String, Object> kafkaListenerContainerFactory(
       final ConsumerFactory<String, Object> consumerFactory,
-      final AsyncTaskExecutor virtualThreadAsyncTaskExecutor,
+      @Qualifier("applicationTaskExecutor") final AsyncTaskExecutor virtualThreadAsyncTaskExecutor,
       final RecordMessageConverter multiTypeConverter) {
         final var factory = new ConcurrentKafkaListenerContainerFactory<String, Object>();
         factory.setConsumerFactory(consumerFactory);
