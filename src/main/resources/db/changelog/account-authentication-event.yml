@@ -1,0 +1,48 @@
+databaseChangeLog:
+  - changeSet:
+      id: account-authentication-event.v1
+      author: rcsoyer
+      changes:
+        - createTable:
+            tableName: account_authentication_event
+            remarks: Represents an Account authentication event, such as login
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: account_id
+                  type: bigint
+                  constraints:
+                    foreignKeyName: fk_account_auth_event_id
+                    references: account(id)
+              - column:
+                  name: date_created
+                  type: datetime(6)
+                  constraints:
+                    nullable: false
+                  remarks: The date time of when this record was created
+              - column:
+                  name: created_by
+                  type: varchar(50)
+                  remarks: The Account that has authenticated login into the platform
+              - column:
+                  name: authentication_timestamp
+                  type: datetime(6)
+                  constraints:
+                    nullable: false
+                  remarks: The date time of when the authentication event happened
+              - column:
+                  name: remote_address
+                  type: varchar(45)
+                  remarks: The ip address of the client used for authentication
+              - column:
+                  name: event_type
+                  type: varchar(30)
+                  constraints:
+                    nullable: false
+                  remarks: The Authentication event type
