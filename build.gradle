@@ -45,6 +45,7 @@ dependencies {
     implementation "org.zalando:jackson-datatype-problem:$problemJacksonVersion"
     implementation "io.jsonwebtoken:jjwt-api:$jjwtVersion"
     implementation "org.springdoc:springdoc-openapi-starter-webmvc-ui:$springdocVersion"
+    implementation "org.mapstruct:mapstruct:$mapStructVersion"
 
     runtimeOnly 'org.postgresql:postgresql'
     runtimeOnly 'org.liquibase:liquibase-core'

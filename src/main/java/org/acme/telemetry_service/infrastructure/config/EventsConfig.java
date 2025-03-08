@@ -1,4 +1,4 @@
-package org.acme.telemetry_service.intrastructure.config;
+package org.acme.telemetry_service.infrastructure.config;
 
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.ApplicationEventPublisher;

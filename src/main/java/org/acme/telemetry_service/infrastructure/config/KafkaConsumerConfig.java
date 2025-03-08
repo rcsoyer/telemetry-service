@@ -1,4 +1,4 @@
-package org.acme.telemetry_service.intrastructure.config;
+package org.acme.telemetry_service.infrastructure.config;
 
 import java.util.Map;
 import org.apache.kafka.common.serialization.StringDeserializer;
