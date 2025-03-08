@@ -26,6 +26,9 @@ spring:
       hibernate:
         id:
           db_structure_naming_strategy: legacy
+  hikari:
+    data-source-properties:
+      ssl: true
   lifecycle:
     timeout-per-shutdown-phase: 80s
   mvc:
