@@ -31,7 +31,7 @@ import static org.acme.telemetry_service.domain.entity.AccountAuthenticationEven
 @Getter
 @Entity
 @NoArgsConstructor(access = PROTECTED)
-public class AccountAuthenticationEvent extends BaseAuditEntity {
+public class AccountAuthenticationEvent extends BaseAuditImmutableEntity {
 
     @ManyToOne
     @JoinColumn(name = "account_id", updatable = false)

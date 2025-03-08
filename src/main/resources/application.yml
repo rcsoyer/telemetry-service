@@ -22,6 +22,10 @@ spring:
     open-in-view: false
     hibernate:
       ddl-auto: validate
+    properties:
+      hibernate:
+        id:
+          db_structure_naming_strategy: legacy
   lifecycle:
     timeout-per-shutdown-phase: 80s
   mvc:
