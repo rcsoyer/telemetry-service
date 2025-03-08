@@ -2,6 +2,7 @@ package org.acme.telemetry_service.intrastructure.config;
 
 import java.util.Map;
 import org.apache.kafka.common.serialization.StringDeserializer;
+import org.springframework.boot.autoconfigure.kafka.KafkaProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.kafka.annotation.EnableKafka;
@@ -33,18 +34,19 @@ class KafkaConsumerConfig {
     }
 
     @Bean
-    ConsumerFactory<String, Object> consumerFactory() {
+    ConsumerFactory<String, Object> consumerFactory(final KafkaProperties properties) {
         final Map<String, Object> configs =
-          Map.of(BOOTSTRAP_SERVERS_CONFIG, "bootstrapAddress",
+          Map.of(BOOTSTRAP_SERVERS_CONFIG, properties.getBootstrapServers(),
                  KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class,
                  VALUE_DESERIALIZER_CLASS_CONFIG, JsonDeserializer.class);
         return new DefaultKafkaConsumerFactory<>(configs);
     }
 
     @Bean
-    ConcurrentKafkaListenerContainerFactory<String, Object> kafkaListenerContainerFactory() {
+    ConcurrentKafkaListenerContainerFactory<String, Object> kafkaListenerContainerFactory(
+      final ConsumerFactory<String, Object> consumerFactory) {
         final var factory = new ConcurrentKafkaListenerContainerFactory<String, Object>();
-        factory.setConsumerFactory(consumerFactory());
+        factory.setConsumerFactory(consumerFactory);
         factory.setRecordMessageConverter(multiTypeConverter());
         return factory;
     }
