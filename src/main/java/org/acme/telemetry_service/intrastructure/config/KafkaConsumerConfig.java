@@ -51,10 +51,9 @@ class KafkaConsumerConfig {
         final var factory = new ConcurrentKafkaListenerContainerFactory<String, Object>();
         factory.setConsumerFactory(consumerFactory);
         factory.setRecordMessageConverter(multiTypeConverter);
-        factory.setContainerCustomizer(customizer -> {
-            customizer.getContainerProperties()
-                      .setListenerTaskExecutor(virtualThreadAsyncTaskExecutor);
-        });
+        factory.setContainerCustomizer(
+          customizer -> customizer.getContainerProperties()
+                                  .setListenerTaskExecutor(virtualThreadAsyncTaskExecutor));
         return factory;
     }
 }
