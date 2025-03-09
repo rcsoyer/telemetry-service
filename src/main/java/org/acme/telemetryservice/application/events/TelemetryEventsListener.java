@@ -15,10 +15,4 @@ class TelemetryEventsListener {
     void fridgeTelemetryEventHandler(final FridgeTelemetryEvent event) {
         log.info("fridge telemetry event={}", event);
     }
-
-/*    @KafkaHandler(isDefault = true)
-    void fridgeTelemetryEventHandler(final Object event) {
-      //  final Object o = headers.get(KafkaHeaders.KEY);
-        log.debug("fridge telemetry event={}", event);
-    }*/
 }
