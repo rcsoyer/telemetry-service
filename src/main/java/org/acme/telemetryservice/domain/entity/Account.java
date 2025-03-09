@@ -1,6 +1,9 @@
 package org.acme.telemetryservice.domain.entity;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+import jakarta.persistence.SequenceGenerator;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -13,6 +16,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.web.server.ResponseStatusException;
 
+import static jakarta.persistence.GenerationType.SEQUENCE;
 import static java.time.LocalDate.now;
 import static lombok.AccessLevel.PROTECTED;
 import static org.apache.commons.lang3.StringUtils.deleteWhitespace;
@@ -25,6 +29,13 @@ import static org.springframework.http.HttpStatus.BAD_REQUEST;
 @Entity
 @NoArgsConstructor(access = PROTECTED)
 public class Account extends BaseAuditEntity {
+
+    @Id
+    @GeneratedValue(strategy = SEQUENCE, generator = "account_seq_gen")
+    @SequenceGenerator(name = "account_seq_gen",
+      sequenceName = "account_seq",
+      allocationSize = 1)
+    private Long id;
 
     @Valid
     @NotNull(message = "A person's name is mandatory")

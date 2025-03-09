@@ -1,6 +1,14 @@
 databaseChangeLog:
   - changeSet:
-      id: accountv1
+      id: account.v1
+      author: rcsoyer
+      changes:
+        - createSequence:
+            cycle: true
+            dataType: bigint
+            sequenceName: account_seq
+  - changeSet:
+      id: account.v2
       author: rcsoyer
       changes:
         - createTable:

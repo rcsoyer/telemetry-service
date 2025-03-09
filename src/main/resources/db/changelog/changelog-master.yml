@@ -1,7 +1,5 @@
 databaseChangeLog:
   - include:
-      file: classpath:db/changelog/hibernate-sequence.yml
-  - include:
       file: classpath:db/changelog/account.yml
   - include:
       file: classpath:db/changelog/account-authentication-event.yml
