@@ -16,10 +16,11 @@ class KafkaJsonConverter extends BytesJsonMessageConverter {
 
     @Override
     protected Object extractAndConvertValue(final ConsumerRecord<?, ?> record, final Type type) {
-        try {
-            return super.extractAndConvertValue(record, type);
-        } catch (final IllegalStateException unrecognizedTypeError) {
-            return record.value();
+        final Object recordValue = record.value();
+        if (recordValue != null && type.equals(Object.class)) {
+            return recordValue;
         }
+
+        return super.extractAndConvertValue(record, type);
     }
 }
