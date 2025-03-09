@@ -1,12 +1,9 @@
 package org.acme.telemetryservice.application.events;
 
-import java.util.Map;
 import lombok.extern.slf4j.Slf4j;
 import org.acme.telemetryservice.domain.dto.command.FridgeTelemetryEvent;
 import org.springframework.kafka.annotation.KafkaHandler;
 import org.springframework.kafka.annotation.KafkaListener;
-import org.springframework.kafka.support.KafkaHeaders;
-import org.springframework.messaging.handler.annotation.Headers;
 import org.springframework.stereotype.Component;
 
 @Slf4j
