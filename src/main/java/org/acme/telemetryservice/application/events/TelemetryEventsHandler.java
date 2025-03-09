@@ -3,7 +3,6 @@ package org.acme.telemetryservice.application.events;
 import lombok.extern.slf4j.Slf4j;
 import org.acme.telemetryservice.domain.dto.command.CoffeeMachineTelemetryEvent;
 import org.acme.telemetryservice.domain.dto.command.FridgeTelemetryEvent;
-import org.springframework.kafka.annotation.KafkaHandler;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Component;
 
