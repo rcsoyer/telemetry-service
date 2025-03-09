@@ -49,7 +49,8 @@ class KafkaConsumerConfig {
         factory.setContainerCustomizer(
           customizer ->
             customizer.getContainerProperties()
-                      .setListenerTaskExecutor(virtualThreadAsyncTaskExecutor));
+                      .setListenerTaskExecutor(virtualThreadAsyncTaskExecutor)
+        );
         return factory;
     }
 }
