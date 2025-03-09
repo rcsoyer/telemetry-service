@@ -2,7 +2,6 @@ package org.acme.telemetryservice.domain.entity;
 
 import jakarta.persistence.Cacheable;
 import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -14,6 +13,7 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.NaturalId;
 import org.hibernate.annotations.NaturalIdCache;
 
+import static jakarta.persistence.EnumType.STRING;
 import static lombok.AccessLevel.PROTECTED;
 import static org.apache.commons.lang3.StringUtils.capitalize;
 import static org.apache.commons.lang3.StringUtils.normalizeSpace;
@@ -40,7 +40,7 @@ public class IoTDevice extends BaseAuditEntity {
     @NotBlank(message = "The device model's name as defined by its manufacturer")
     private String deviceModel;
 
-    @Enumerated(EnumType.STRING)
+    @Enumerated(STRING)
     @NotNull(message = "A valid IoT device Type is mandatory")
     private IotDeviceType deviceType;
 
