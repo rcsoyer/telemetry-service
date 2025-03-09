@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 @Slf4j
 @Component
 @KafkaListener(id = "telemetryGroup", topics = "telemetryEvents")
-class TelemetryEventsListener {
+class TelemetryEventsHandler {
 
     @KafkaHandler
     void fridgeTelemetryEventHandler(final FridgeTelemetryEvent event) {
