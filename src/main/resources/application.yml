@@ -22,6 +22,16 @@ spring:
     open-in-view: false
     hibernate:
       ddl-auto: validate
+    properties:
+      hibernate:
+        cache:
+          use_second_level_cache: true
+          use_query_cache: true
+          region.factory_class: org.hibernate.cache.jcache.JCacheRegionFactory
+      jakarta:
+        persistence:
+          sharedCache:
+            mode: ENABLE_SELECTIVE
   hikari:
     data-source-properties:
       ssl: true

@@ -1,5 +1,6 @@
 package org.acme.telemetryservice.domain.entity;
 
+import jakarta.persistence.Cacheable;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -9,17 +10,23 @@ import java.util.UUID;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.NaturalId;
+import org.hibernate.annotations.NaturalIdCache;
 
 import static lombok.AccessLevel.PROTECTED;
 import static org.apache.commons.lang3.StringUtils.capitalize;
 import static org.apache.commons.lang3.StringUtils.normalizeSpace;
+import static org.hibernate.annotations.CacheConcurrencyStrategy.READ_WRITE;
 
 /**
  * Generic IoT device registration. <br/> Basic, common data expected for all IoT devices registered in the platform
  */
 @Getter
 @Entity
+@Cacheable
+@NaturalIdCache
+@Cache(usage = READ_WRITE)
 @NoArgsConstructor(access = PROTECTED)
 public class IoTDevice extends BaseAuditEntity {
 
