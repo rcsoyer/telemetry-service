@@ -13,8 +13,6 @@ import org.springframework.kafka.annotation.EnableKafka;
 import org.springframework.kafka.config.ConcurrentKafkaListenerContainerFactory;
 import org.springframework.kafka.core.ConsumerFactory;
 import org.springframework.kafka.core.DefaultKafkaConsumerFactory;
-import org.springframework.kafka.support.converter.RecordMessageConverter;
-import org.springframework.kafka.support.mapping.DefaultJackson2JavaTypeMapper;
 import org.springframework.kafka.support.serializer.JsonDeserializer;
 
 import static org.apache.kafka.clients.consumer.ConsumerConfig.GROUP_ID_CONFIG;
@@ -26,15 +24,6 @@ import static org.springframework.kafka.support.serializer.JsonDeserializer.TYPE
 @EnableKafka
 @Configuration
 class KafkaConsumerConfig {
-
-    @Bean
-    RecordMessageConverter multiTypeConverter(final ObjectMapper objectMapper) {
-        final var typeMapper = new DefaultJackson2JavaTypeMapper();
-        typeMapper.addTrustedPackages("*");
-        final var messageConverter = new KafkaJsonConverter(objectMapper);
-        messageConverter.setTypeMapper(typeMapper);
-        return messageConverter;
-    }
 
     @Bean
     ConsumerFactory<String, Object> consumerFactory(final KafkaProperties properties,
@@ -53,11 +42,9 @@ class KafkaConsumerConfig {
     @Bean
     ConcurrentKafkaListenerContainerFactory<String, Object> kafkaListenerContainerFactory(
       final ConsumerFactory<String, Object> consumerFactory,
-      @Qualifier("applicationTaskExecutor") final AsyncTaskExecutor virtualThreadAsyncTaskExecutor,
-      final RecordMessageConverter multiTypeConverter
+      @Qualifier("applicationTaskExecutor") final AsyncTaskExecutor virtualThreadAsyncTaskExecutor
     ) {
         final var factory = new ConcurrentKafkaListenerContainerFactory<String, Object>();
-        factory.setRecordMessageConverter(multiTypeConverter);
         factory.setConsumerFactory(consumerFactory);
         factory.setContainerCustomizer(
           customizer ->
