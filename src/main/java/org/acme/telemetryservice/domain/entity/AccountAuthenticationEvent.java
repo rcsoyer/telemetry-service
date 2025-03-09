@@ -2,11 +2,8 @@ package org.acme.telemetryservice.domain.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Enumerated;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.SequenceGenerator;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PastOrPresent;
 import java.net.InetAddress;
@@ -23,7 +20,6 @@ import org.springframework.security.authentication.event.AuthenticationSuccessEv
 import org.springframework.security.web.authentication.WebAuthenticationDetails;
 
 import static jakarta.persistence.EnumType.STRING;
-import static jakarta.persistence.GenerationType.SEQUENCE;
 import static lombok.AccessLevel.PROTECTED;
 import static org.acme.telemetryservice.domain.entity.AccountAuthenticationEvent.AuthenticationEventType.FAILURE;
 import static org.acme.telemetryservice.domain.entity.AccountAuthenticationEvent.AuthenticationEventType.FAILURE_BAD_CREDENTIALS;
@@ -36,13 +32,6 @@ import static org.acme.telemetryservice.domain.entity.AccountAuthenticationEvent
 @Entity
 @NoArgsConstructor(access = PROTECTED)
 public class AccountAuthenticationEvent extends BaseAuditImmutableEntity {
-
-    @Id
-    @GeneratedValue(strategy = SEQUENCE, generator = "account_auth_seq_gen")
-    @SequenceGenerator(name = "account_auth_seq_gen",
-      sequenceName = "account_authentication_event_seq",
-      allocationSize = 1)
-    private Long id;
 
     @ManyToOne
     @JoinColumn(name = "account_id", updatable = false)

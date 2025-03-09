@@ -1,9 +1,0 @@
-databaseChangeLog:
-  - changeSet:
-      id: account_authentication_event_seq.v1
-      author: rcsoyer
-      changes:
-        - createSequence:
-            cycle: true
-            dataType: bigint
-            sequenceName: account_authentication_event_seq

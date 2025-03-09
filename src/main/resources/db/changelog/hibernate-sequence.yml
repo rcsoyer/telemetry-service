@@ -1,9 +1,0 @@
-databaseChangeLog:
-  - changeSet:
-      id: hibernate-sequence.v1
-      author: rcsoyer
-      changes:
-        - createSequence:
-            cycle: true
-            dataType: bigint
-            sequenceName: hibernate_sequence
