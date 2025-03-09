@@ -1,0 +1,70 @@
+databaseChangeLog:
+  - changeSet:
+      id: iot_device.v1
+      author: rcsoyer
+      changes:
+        - createSequence:
+            cycle: true
+            dataType: bigint
+            sequenceName: iotdevice_seq
+            incrementBy: 50
+  - changeSet:
+      id: iot_device.v2
+      author: rcsoyer
+      changes:
+        - createTable:
+            tableName: iotdevice
+            remarks: Represents a registered IoT device in the platform
+            columns:
+              - column:
+                  name: id
+                  type: bigserial
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: device_id
+                  type: uuid
+                  constraints:
+                    nullable: false
+                    unique: true
+              - column:
+                  name: device_name
+                  type: varchar(60)
+                  constraints:
+                    nullable: false
+                    unique: true
+                  remarks: The (nick) name used for this IoT Device
+              - column:
+                  name: device_model
+                  type: varchar(60)
+                  constraints:
+                    nullable: false
+                  remarks: The manufacturer's device model name
+              - column:
+                  name: device_type
+                  type: varchar(10)
+                  constraints:
+                    nullable: false
+                  remarks: The predefined via enum, device's type
+              - column:
+                  name: date_created
+                  type: datetime(6)
+                  constraints:
+                    nullable: false
+                  remarks: The date time of when this Account was created
+              - column:
+                  name: date_modified
+                  type: datetime(6)
+                  remarks: The date time of when this Account was last modified
+              - column:
+                  name: created_by
+                  type: varchar(50)
+                  constraints:
+                    nullable: false
+                  remarks: The user that created this Account
+              - column:
+                  name: modified_by
+                  type: varchar(50)
+                  remarks: The user that last modified this Account
