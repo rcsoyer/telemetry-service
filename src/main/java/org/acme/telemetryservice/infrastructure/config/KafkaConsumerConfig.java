@@ -30,9 +30,7 @@ class KafkaConsumerConfig {
     @Bean
     RecordMessageConverter multiTypeConverter(final ObjectMapper objectMapper) {
         final var typeMapper = new DefaultJackson2JavaTypeMapper();
-        //     typeMapper.setTypePrecedence(TYPE_ID);
         typeMapper.addTrustedPackages("*");
-        //    typeMapper.setIdClassMapping(Map.of("fridgeTelemetryEvent", FridgeTelemetryEvent.class));
         final var messageConverter = new KafkaJsonConverter(objectMapper);
         messageConverter.setTypeMapper(typeMapper);
         return messageConverter;
@@ -41,18 +39,15 @@ class KafkaConsumerConfig {
     @Bean
     ConsumerFactory<String, Object> consumerFactory(final KafkaProperties properties,
                                                     final ObjectMapper objectMapper) {
-        final Map<String, Object> allConfigs = properties.buildConsumerProperties();
-        allConfigs.put(GROUP_ID_CONFIG, "telemetryGroup");
-        allConfigs.put(TRUSTED_PACKAGES, "*");
-        allConfigs.put(VALUE_DESERIALIZER_CLASS_CONFIG, JsonDeserializer.class);
-/*        allConfigs.put(VALUE_DEFAULT_TYPE,
-                       "org.acme.telemetryservice.domain.dto.command.FridgeTelemetryEvent");*/
-        // allConfigs.put(VALUE_DESERIALIZER_CLASS, JsonDeserializer.class);
-        allConfigs.put(
+        final Map<String, Object> configs = properties.buildConsumerProperties();
+        configs.put(GROUP_ID_CONFIG, "telemetryGroup");
+        configs.put(TRUSTED_PACKAGES, "*");
+        configs.put(VALUE_DESERIALIZER_CLASS_CONFIG, JsonDeserializer.class);
+        configs.put(
           TYPE_MAPPINGS,
           "fridgeTelemetryEvent:org.acme.telemetryservice.domain.dto.command.FridgeTelemetryEvent");
         return new DefaultKafkaConsumerFactory<>(
-          allConfigs, new StringDeserializer(), new JsonDeserializer<>(objectMapper));
+          configs, new StringDeserializer(), new JsonDeserializer<>(objectMapper));
     }
 
     @Bean
