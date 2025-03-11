@@ -18,8 +18,7 @@ databaseChangeLog:
             columns:
               - column:
                   name: id
-                  type: bigserial
-                  autoIncrement: true
+                  type: bigint
                   constraints:
                     primaryKey: true
                     nullable: false
@@ -29,6 +28,7 @@ databaseChangeLog:
                   constraints:
                     foreignKeyName: fk_account_auth_event_id
                     references: account(id)
+                    nullable: false
               - column:
                   name: date_created
                   type: datetime(6)
