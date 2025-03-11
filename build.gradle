@@ -52,7 +52,7 @@ dependencies {
     runtimeOnly 'org.liquibase:liquibase-core'
     runtimeOnly "io.jsonwebtoken:jjwt-impl:$jjwtVersion"
     runtimeOnly "io.jsonwebtoken:jjwt-jackson:$jjwtVersion"
-    runtimeOnly 'org.ehcache:ehcache'
+    runtimeOnly 'org.ehcache:ehcache::jakarta'
 
     annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
     annotationProcessor "org.mapstruct:mapstruct-processor:$mapStructVersion"
