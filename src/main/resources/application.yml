@@ -32,10 +32,6 @@ spring:
           cache:
             missing_cache_strategy: create
             provider: org.ehcache.jsr107.EhcacheCachingProvider
-      jakarta:
-        persistence:
-          sharedCache:
-            mode: ENABLE_SELECTIVE
   hikari:
     data-source-properties:
       ssl: true
