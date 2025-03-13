@@ -15,7 +15,7 @@ import static lombok.AccessLevel.PROTECTED;
 @Getter
 @Entity
 @NoArgsConstructor(access = PROTECTED)
-public class FridgeTelemetryData extends BaseAuditImmutableEntity {
+public class FridgeTelemetryEvent extends BaseAuditImmutableEntity {
 
     @ManyToOne(optional = false, fetch = LAZY)
     private IoTDevice device;
@@ -23,7 +23,7 @@ public class FridgeTelemetryData extends BaseAuditImmutableEntity {
     private double temperature;
 
     @Builder
-    private FridgeTelemetryData(final IoTDevice device, final double temperature) {
+    private FridgeTelemetryEvent(final IoTDevice device, final double temperature) {
         this.device = device;
         this.temperature = temperature;
     }
