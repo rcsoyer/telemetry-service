@@ -35,7 +35,7 @@ import static org.hibernate.annotations.CacheConcurrencyStrategy.READ_WRITE;
 public class IoTDevice extends BaseAuditEntity {
 
     /**
-     * An ID used for external reference.
+     * A surrogate ID used for external reference.
      * <br/> For instance, for other applications to store this globally unique ID on their side.
      * <br/> In this way the database ID, is never exposed to the outside world.
      */
