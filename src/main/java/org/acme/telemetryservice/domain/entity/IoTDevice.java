@@ -34,6 +34,11 @@ import static org.hibernate.annotations.CacheConcurrencyStrategy.READ_WRITE;
 @NoArgsConstructor(access = PROTECTED)
 public class IoTDevice extends BaseAuditEntity {
 
+    /**
+     * An ID used for external reference.
+     * <br/> For instance, for other applications to store this globally unique ID on their side.
+     * <br/> In this way the database ID, is never exposed to the outside world.
+     */
     @NaturalId
     @NotNull(message = "A device's ID is mandatory")
     private UUID deviceId;
