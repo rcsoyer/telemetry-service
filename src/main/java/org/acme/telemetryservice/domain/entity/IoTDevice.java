@@ -5,16 +5,19 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Enumerated;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import java.util.Objects;
 import java.util.UUID;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.NaturalId;
 import org.hibernate.annotations.NaturalIdCache;
 
 import static jakarta.persistence.EnumType.STRING;
 import static lombok.AccessLevel.PROTECTED;
+import static org.apache.commons.lang3.ObjectUtils.allNotNull;
 import static org.apache.commons.lang3.StringUtils.capitalize;
 import static org.apache.commons.lang3.StringUtils.normalizeSpace;
 import static org.hibernate.annotations.CacheConcurrencyStrategy.READ_WRITE;
@@ -25,6 +28,7 @@ import static org.hibernate.annotations.CacheConcurrencyStrategy.READ_WRITE;
 @Getter
 @Entity
 @Cacheable
+@ToString
 @NaturalIdCache
 @Cache(usage = READ_WRITE)
 @NoArgsConstructor(access = PROTECTED)
@@ -52,6 +56,25 @@ public class IoTDevice extends BaseAuditEntity {
         this.deviceModel = capitalize(normalizeSpace(deviceModel));
         this.deviceType = deviceType;
         this.deviceId = UUID.randomUUID();
+    }
+
+    @Override
+    public boolean equals(final Object other) {
+        if (other == null || getClass() != other.getClass()) {
+            return false;
+        }
+
+        final IoTDevice ioTDevice = (IoTDevice) other;
+        if (allNotNull(getId(), ioTDevice.getDeviceId())) {
+            return Objects.equals(getId(), ioTDevice.getId());
+        }
+
+        return false;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(getId());
     }
 
     enum IotDeviceType {
