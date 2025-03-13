@@ -21,13 +21,13 @@ public class FridgeTelemetryEvent extends BaseAuditEventEntity {
 
     @ManyToOne(optional = false, fetch = LAZY)
     @JoinColumn(name = "device_id", updatable = false)
-    private IoTDevice device;
+    private IoTDevice sourceDevice;
 
     private double temperature;
 
     @Builder
-    private FridgeTelemetryEvent(final IoTDevice device, final double temperature) {
-        this.device = device;
+    private FridgeTelemetryEvent(final IoTDevice sourceDevice, final double temperature) {
+        this.sourceDevice = sourceDevice;
         this.temperature = temperature;
     }
 }
