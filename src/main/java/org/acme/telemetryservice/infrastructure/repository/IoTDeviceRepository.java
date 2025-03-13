@@ -10,4 +10,6 @@ import org.springframework.stereotype.Repository;
 public interface IoTDeviceRepository extends JpaRepository<IoTDevice, Long> {
 
     Optional<IoTDevice> findByDeviceId(UUID deviceId);
+
+    boolean existsByDeviceName(String deviceName);
 }
