@@ -34,9 +34,9 @@ class KafkaConsumerConfig {
         configs.put(VALUE_DESERIALIZER_CLASS_CONFIG, JsonDeserializer.class);
         configs.put(
           TYPE_MAPPINGS,
-          "fridgeTelemetryEvent:org.acme.telemetryservice.domain.dto.command.FridgeTelemetryEvent,"
-            + "coffeeMachineTelemetryEvent:org.acme.telemetryservice.domain.dto.command.CoffeeMachineTelemetryEvent,"
-            + "thermostatTelemetryEvent:org.acme.telemetryservice.domain.dto.command.ThermostatTelemetryEvent");
+          "fridgeTelemetryEvent:org.acme.telemetryservice.domain.dto.command.FridgeTelemetryData,"
+            + "coffeeMachineTelemetryEvent:org.acme.telemetryservice.domain.dto.command.CoffeeMachineTelemetryData,"
+            + "thermostatTelemetryEvent:org.acme.telemetryservice.domain.dto.command.ThermostatTelemetryData");
         return new DefaultKafkaConsumerFactory<>(
           configs, new StringDeserializer(), new JsonDeserializer<>(objectMapper));
     }
