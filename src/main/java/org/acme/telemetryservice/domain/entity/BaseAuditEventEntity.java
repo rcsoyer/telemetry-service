@@ -51,9 +51,9 @@ abstract class BaseAuditEventEntity {
             return false;
         }
 
-        final var anotherImmutable = (BaseAuditEventEntity) other;
-        if (allNotNull(getId(), anotherImmutable.getId())) {
-            return getId().equals(anotherImmutable.getId());
+        final var anotherEvent = (BaseAuditEventEntity) other;
+        if (allNotNull(getId(), anotherEvent.getId())) {
+            return getId().equals(anotherEvent.getId());
         }
 
         return false;
