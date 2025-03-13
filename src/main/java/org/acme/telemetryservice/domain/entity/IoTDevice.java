@@ -49,9 +49,7 @@ public class IoTDevice extends BaseAuditEntity {
     private IotDeviceType deviceType;
 
     @Builder
-    private IoTDevice(final String deviceName,
-                      final String deviceModel,
-                      final IotDeviceType deviceType) {
+    private IoTDevice(final String deviceName, final String deviceModel, final IotDeviceType deviceType) {
         this.deviceName = capitalize(normalizeSpace(deviceName));
         this.deviceModel = capitalize(normalizeSpace(deviceModel));
         this.deviceType = deviceType;
@@ -64,9 +62,9 @@ public class IoTDevice extends BaseAuditEntity {
             return false;
         }
 
-        final IoTDevice ioTDevice = (IoTDevice) other;
-        if (allNotNull(getId(), ioTDevice.getDeviceId())) {
-            return Objects.equals(getId(), ioTDevice.getId());
+        final var anotherDevice = (IoTDevice) other;
+        if (allNotNull(getId(), anotherDevice.getId())) {
+            return getId().equals(anotherDevice.getId());
         }
 
         return false;
