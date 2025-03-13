@@ -3,6 +3,7 @@ package org.acme.telemetryservice.domain.entity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
 import java.util.Objects;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -11,8 +12,7 @@ import static lombok.AccessLevel.PROTECTED;
 import static org.apache.commons.lang3.ObjectUtils.allNotNull;
 
 /**
- * Fridge telemetry data events.
- * <br/> Since these are events, these entities are immutable
+ * Fridge telemetry data events. <br/> Since these are events, these entities are immutable
  */
 @Getter
 @Entity
@@ -23,6 +23,12 @@ public class FridgeTelemetryData extends BaseAuditImmutableEntity {
     private IoTDevice device;
 
     private double temperature;
+
+    @Builder
+    private FridgeTelemetryData(final IoTDevice device, final double temperature) {
+        this.device = device;
+        this.temperature = temperature;
+    }
 
     @Override
     public boolean equals(final Object other) {
