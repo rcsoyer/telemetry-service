@@ -19,6 +19,12 @@ import static jakarta.persistence.GenerationType.SEQUENCE;
 import static lombok.AccessLevel.PROTECTED;
 import static org.apache.commons.lang3.ObjectUtils.allNotNull;
 
+/**
+ * Immutable, auditable super entity class.
+ * <br/> Provides common functionalities for reusability and DRY(don't repeat yourself)
+ *
+ * @implNote It provides a common equals and hashcode
+ */
 @Getter
 @ToString
 @Immutable
@@ -43,6 +49,10 @@ abstract class BaseAuditImmutableEntity {
     private String createdBy;
 
 
+    /**
+     * Common implementation for equals and hash code.
+     * <br/> If needed children classes may  override it to consider other fields
+     */
     @Override
     public boolean equals(final Object other) {
         if (other == null || getClass() != other.getClass()) {
