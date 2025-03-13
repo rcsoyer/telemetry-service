@@ -31,14 +31,17 @@ public class JwtService {
     }
 
     public String generateJwt(final Authentication authentication) {
-        final Instant jwtExpiration = LocalDateTime.now().plusHours(jwtExpirationHours).toInstant(ZoneOffset.UTC);
+        final Instant jwtExpiration = LocalDateTime
+                                        .now()
+                                        .plusHours(jwtExpirationHours)
+                                        .toInstant(ZoneOffset.UTC);
         return Jwts.builder()
                    .id(UUID.randomUUID().toString())
                    .subject((authentication.getName()))
                    .issuedAt(new Date())
                    .expiration(Date.from(jwtExpiration))
                    .signWith(secretKey, Jwts.SIG.HS512)
-                   .issuer("acme.org")
+                   .issuer("org.acme")
                    .compact();
     }
 
