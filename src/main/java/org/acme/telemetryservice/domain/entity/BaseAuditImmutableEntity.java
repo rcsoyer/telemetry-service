@@ -9,9 +9,9 @@ import java.time.Instant;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import org.hibernate.annotations.Immutable;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.Immutable;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import static jakarta.persistence.GenerationType.SEQUENCE;
