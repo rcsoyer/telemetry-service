@@ -2,5 +2,5 @@ package org.acme.telemetryservice.domain.dto.command;
 
 import java.util.UUID;
 
-public record IoTDeviceRegisterResponse(UUID deviceId) {
+public record IoTDeviceRegisterResponse(UUID deviceId, String deviceName, String deviceModel) {
 }
