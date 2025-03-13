@@ -17,7 +17,7 @@ import static lombok.AccessLevel.PROTECTED;
 @Getter
 @Entity
 @NoArgsConstructor(access = PROTECTED)
-public class FridgeTelemetryEvent extends BaseAuditImmutableEntity {
+public class FridgeTelemetryEvent extends BaseAuditEventEntity {
 
     @ManyToOne(optional = false, fetch = LAZY)
     @JoinColumn(name = "device_id", updatable = false)

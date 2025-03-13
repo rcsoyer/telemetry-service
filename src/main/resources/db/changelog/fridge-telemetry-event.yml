@@ -41,7 +41,3 @@ databaseChangeLog:
                   constraints:
                     nullable: false
                   remarks: The date time of when this record was created
-              - column:
-                  name: created_by
-                  type: varchar(50)
-                  remarks: The Account that has authenticated login into the platform
