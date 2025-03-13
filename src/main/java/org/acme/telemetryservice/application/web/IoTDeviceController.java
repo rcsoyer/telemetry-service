@@ -42,7 +42,7 @@ class IoTDeviceController {
       content = @Content(mediaType = "application/problem+json",
         schema = @Schema(implementation = Problem.class)))
     IoTDeviceRegisterResponse register(@RequestBody @Valid final IoTDeviceRegisterRequest request) {
-        log.debug("Rest API call to register a new Account");
+        log.debug("Rest API call to register a new IoT Device");
         return service.createDevice(request);
     }
 }
