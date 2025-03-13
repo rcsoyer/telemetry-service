@@ -80,7 +80,7 @@ public class IoTDevice extends BaseAuditEntity {
         return Objects.hashCode(getId());
     }
 
-    enum IotDeviceType {
+    public enum IotDeviceType {
         FRIDGE, COFFEE_MACHINE, THERMOSTAT
     }
 }
