@@ -1,4 +1,6 @@
 package org.acme.telemetryservice.domain.dto.command;
 
-public record FridgeTelemetryData(int deviceId, double temperature) {
+import java.util.UUID;
+
+public record FridgeTelemetryData(UUID deviceId, double temperature) {
 }
