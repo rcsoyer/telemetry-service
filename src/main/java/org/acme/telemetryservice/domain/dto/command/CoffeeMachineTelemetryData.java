@@ -6,5 +6,5 @@ import org.acme.telemetryservice.domain.entity.CoffeeMachineTelemetryEvent.Devic
 public record CoffeeMachineTelemetryData(
   UUID deviceId,
   @EnumType(enumClass = DeviceStatus.class)
-  DeviceStatus status) implements TelemetryData {
+  String status) implements TelemetryData {
 }
