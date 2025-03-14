@@ -11,7 +11,8 @@ import static jakarta.persistence.FetchType.LAZY;
 import static lombok.AccessLevel.PROTECTED;
 
 /**
- * Represents an event telemetry data of a Fridge IoT Device. <br/> Since these are events, these entities are immutable
+ * Represents an event telemetry data of a Thermostat IoT Device.
+ * <br/> Since these are events, these entities are immutable
  */
 @Getter
 @Entity
