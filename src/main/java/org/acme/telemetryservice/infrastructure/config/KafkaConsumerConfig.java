@@ -1,7 +1,7 @@
 package org.acme.telemetryservice.infrastructure.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import java.util.Map;
+import java.util.HashMap;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.common.serialization.StringDeserializer;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -16,8 +16,8 @@ import org.springframework.kafka.core.DefaultKafkaConsumerFactory;
 import org.springframework.kafka.support.serializer.JsonDeserializer;
 
 import static org.apache.kafka.clients.consumer.ConsumerConfig.AUTO_OFFSET_RESET_CONFIG;
+import static org.apache.kafka.clients.consumer.ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG;
 import static org.apache.kafka.clients.consumer.ConsumerConfig.GROUP_ID_CONFIG;
-import static org.apache.kafka.clients.consumer.ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG;
 import static org.springframework.kafka.support.serializer.JsonDeserializer.TRUSTED_PACKAGES;
 import static org.springframework.kafka.support.serializer.JsonDeserializer.TYPE_MAPPINGS;
 
@@ -29,11 +29,11 @@ class KafkaConsumerConfig {
     @Bean
     ConsumerFactory<String, Object> consumerFactory(final KafkaProperties properties,
                                                     final ObjectMapper objectMapper) {
-        final Map<String, Object> configs = properties.buildConsumerProperties();
+        final var configs = new HashMap<String, Object>();
+        configs.put(BOOTSTRAP_SERVERS_CONFIG, properties.getBootstrapServers());
         configs.put(GROUP_ID_CONFIG, "telemetryGroup");
         configs.put(AUTO_OFFSET_RESET_CONFIG, "earliest");
         configs.put(TRUSTED_PACKAGES, "*");
-        configs.put(VALUE_DESERIALIZER_CLASS_CONFIG, JsonDeserializer.class);
         configs.put(
           TYPE_MAPPINGS,
           "fridgeTelemetryEvent:org.acme.telemetryservice.domain.dto.command.FridgeTelemetryData,"
