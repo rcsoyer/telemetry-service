@@ -1,8 +1,10 @@
 package org.acme.telemetryservice.domain.dto.command;
 
-public record CoffeeMachineTelemetryData(DeviceStatus status) {
+import java.util.UUID;
+import org.acme.telemetryservice.domain.entity.CoffeeMachineTelemetryEvent.DeviceStatus;
 
-    enum DeviceStatus {
-        IN_PROGRESS, READY, IDLE, ERROR
-    }
+public record CoffeeMachineTelemetryData(
+  UUID deviceId,
+  @EnumType(enumClass = DeviceStatus.class)
+  DeviceStatus status) {
 }

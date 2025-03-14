@@ -1,5 +1,6 @@
 package org.acme.telemetryservice.application.events;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.acme.telemetryservice.domain.dto.command.CoffeeMachineTelemetryData;
@@ -23,7 +24,7 @@ class TelemetryEventsHandler {
     }
 
     @KafkaListener(topics = "coffeeMachineEvents")
-    void coffeeMachineTelemetryEventHandler(final CoffeeMachineTelemetryData event) {
+    void coffeeMachineTelemetryEventHandler(@Valid final CoffeeMachineTelemetryData event) {
         log.info("coffee machine telemetry event={}", event);
     }
 
