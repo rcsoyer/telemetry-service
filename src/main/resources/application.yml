@@ -32,9 +32,6 @@ spring:
           cache:
             missing_cache_strategy: create
             provider: org.ehcache.jsr107.EhcacheCachingProvider
-  hikari:
-    data-source-properties:
-      ssl: true
   lifecycle:
     timeout-per-shutdown-phase: 80s
   mvc:
