@@ -8,6 +8,8 @@ spring:
       skip:
         in-tests: false
       file: src/test/resources/docker-compose-test.yml
+      stop:
+        timeout: 0s
   kafka:
     bootstrap-servers: localhost:9093
 
