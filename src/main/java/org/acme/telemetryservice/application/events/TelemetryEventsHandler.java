@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.acme.telemetryservice.domain.dto.command.CoffeeMachineTelemetryData;
 import org.acme.telemetryservice.domain.dto.command.FridgeTelemetryData;
 import org.acme.telemetryservice.domain.dto.command.ThermostatTelemetryData;
+import org.acme.telemetryservice.domain.service.CoffeeMachineTelemetryService;
 import org.acme.telemetryservice.domain.service.FridgeTelemetryService;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Component;
@@ -16,6 +17,7 @@ import org.springframework.stereotype.Component;
 class TelemetryEventsHandler {
 
     private final FridgeTelemetryService fridgeTelemetryService;
+    private final CoffeeMachineTelemetryService coffeeMachineTelemetryService;
 
     @KafkaListener(topics = "fridgeEvents")
     void fridgeTelemetryEventHandler(final FridgeTelemetryData event) {
@@ -26,6 +28,7 @@ class TelemetryEventsHandler {
     @KafkaListener(topics = "coffeeMachineEvents")
     void coffeeMachineTelemetryEventHandler(@Valid final CoffeeMachineTelemetryData event) {
         log.info("coffee machine telemetry event={}", event);
+        coffeeMachineTelemetryService.createTelemetryEvent(event);
     }
 
     @KafkaListener(topics = "thermostatEvents")

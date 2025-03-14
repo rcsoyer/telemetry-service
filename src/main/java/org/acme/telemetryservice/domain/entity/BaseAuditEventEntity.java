@@ -31,7 +31,7 @@ import static org.apache.commons.lang3.ObjectUtils.allNotNull;
 @MappedSuperclass
 @NoArgsConstructor(access = PROTECTED)
 @EntityListeners(AuditingEntityListener.class)
-abstract class BaseAuditEventEntity {
+public abstract class BaseAuditEventEntity {
 
     @Id
     @GeneratedValue(strategy = SEQUENCE)
