@@ -1,0 +1,48 @@
+databaseChangeLog:
+  - changeSet:
+      id: thermostat-telemetry-event.v1
+      author: rcsoyer
+      changes:
+        - createSequence:
+            cycle: true
+            dataType: bigint
+            sequenceName: thermostat_telemetry_event_seq
+            incrementBy: 50
+  - changeSet:
+      id: thermostat-telemetry-event.v2
+      author: rcsoyer
+      changes:
+        - createTable:
+            tableName: thermostat_telemetry_event
+            remarks: Represents an event telemetry data of a Thermostat IoT Device
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: device_id
+                  type: bigint
+                  remarks: The IoT device source of this event
+                  constraints:
+                    foreignKeyName: fk_thermostat_telemetry_event_iotdevice
+                    references: iotdevice(id)
+                    nullable: false
+              - column:
+                  name: temperature
+                  type: double
+                  constraints:
+                    nullable: false
+              - column:
+                  name: humidity
+                  type: double
+                  constraints:
+                    nullable: false
+              - column:
+                  name: date_created
+                  type: datetime(6)
+                  constraints:
+                    nullable: false
+                  remarks: The date time of when this record was created

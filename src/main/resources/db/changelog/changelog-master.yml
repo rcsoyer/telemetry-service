@@ -9,3 +9,5 @@ databaseChangeLog:
       file: classpath:db/changelog/fridge-telemetry-event.yml
   - include:
       file: classpath:db/changelog/coffee-machine-telemetry-event.yml
+  - include:
+      file: classpath:db/changelog/thermostat-telemetry-event.yml
