@@ -7,6 +7,9 @@ spring:
     properties:
       hibernate:
         generate_statistics: true
+        show_sql: true
+        format_sql: true
+      #  use_sql_comments: true
   kafka:
     bootstrap-servers: localhost:9092
 
@@ -18,8 +21,7 @@ security:
 logging:
   level:
     root: INFO
-   # org.acme.telemetry_service: DEBUG
-    # org.hibernate.SQL: DEBUG
+  #  org.hibernate.SQL: DEBUG
     # com.zaxxer.hikari.HikariConfig: INFO
     #org.springframework.orm.jpa: INFO
     #org.springframework.jdbc.core: DEBUG
