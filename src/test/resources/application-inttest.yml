@@ -3,6 +3,13 @@ spring:
     properties:
       hibernate:
         generate_statistics: true
+  docker:
+    compose:
+      skip:
+        in-tests: false
+      file: src/test/resources/docker-compose-test.yml
+  kafka:
+    bootstrap-servers: localhost:9093
 
 security:
   jwt:
