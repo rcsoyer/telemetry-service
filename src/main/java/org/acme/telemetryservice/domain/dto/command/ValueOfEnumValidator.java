@@ -5,6 +5,8 @@ import jakarta.validation.ConstraintValidatorContext;
 import java.util.List;
 import java.util.stream.Stream;
 
+import static org.apache.commons.lang3.StringUtils.isBlank;
+
 public class ValueOfEnumValidator
   implements ConstraintValidator<EnumType, CharSequence> {
 
@@ -19,10 +21,10 @@ public class ValueOfEnumValidator
 
     @Override
     public boolean isValid(final CharSequence value, final ConstraintValidatorContext context) {
-        if (value == null) {
-            return true;
+        if (isBlank(value)) {
+            return false;
         }
 
-        return acceptedValues.contains(value.toString());
+        return acceptedValues.contains(value.toString().toUpperCase());
     }
 }
