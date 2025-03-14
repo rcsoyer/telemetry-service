@@ -33,7 +33,7 @@ abstract class TelemetryService<E extends BaseAuditEventEntity,
     private Supplier<IllegalArgumentException> iotSourceDeviceNotFound(final UUID sourceId) {
         return () -> {
             log.warn("Invalid deviceId={} passed as event source", sourceId);
-            return new IllegalArgumentException("Device not found");
+            return new IllegalArgumentException("IoT Device not found");
         };
     }
 }
