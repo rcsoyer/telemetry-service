@@ -25,6 +25,6 @@ public class ValueOfEnumValidator
             return false;
         }
 
-        return acceptedValues.contains(value.toString().toUpperCase());
+        return acceptedValues.contains(value.toString());
     }
 }
