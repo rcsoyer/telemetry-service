@@ -1,7 +1,7 @@
 package org.acme.telemetryservice.domain.service;
 
-import lombok.RequiredArgsConstructor;
 import org.acme.telemetryservice.domain.dto.command.FridgeTelemetryData;
+import org.acme.telemetryservice.domain.entity.FridgeTelemetryEvent;
 import org.acme.telemetryservice.domain.service.mapper.FridgeTelemetryMapper;
 import org.acme.telemetryservice.infrastructure.repository.FridgeTelemetryRepository;
 import org.acme.telemetryservice.infrastructure.repository.IoTDeviceRepository;
@@ -10,18 +10,21 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Transactional
-@RequiredArgsConstructor
-public class FridgeTelemetryService {
+public class FridgeTelemetryService
+  extends TelemetryService<FridgeTelemetryEvent, FridgeTelemetryData> {
 
     private final FridgeTelemetryRepository telemetryRepository;
-    private final IoTDeviceRepository deviceRepository;
     private final FridgeTelemetryMapper mapper;
 
+    public FridgeTelemetryService(final IoTDeviceRepository deviceRepository,
+                                  final FridgeTelemetryRepository telemetryRepository,
+                                  final FridgeTelemetryMapper mapper) {
+        super(deviceRepository);
+        this.telemetryRepository = telemetryRepository;
+        this.mapper = mapper;
+    }
+
     public void createTelemetryEvent(final FridgeTelemetryData event) {
-        deviceRepository
-          .findByDeviceId(event.deviceId())
-          .map(sourceDevice -> mapper.from(sourceDevice, event))
-          .map(telemetryRepository::save)
-          .orElseThrow(() -> new IllegalArgumentException("Device not found"));
+        createTelemetryEvent(event, mapper::from, telemetryRepository::save);
     }
 }
