@@ -15,6 +15,7 @@ import org.springframework.kafka.core.ConsumerFactory;
 import org.springframework.kafka.core.DefaultKafkaConsumerFactory;
 import org.springframework.kafka.support.serializer.JsonDeserializer;
 
+import static org.apache.kafka.clients.consumer.ConsumerConfig.AUTO_OFFSET_RESET_CONFIG;
 import static org.apache.kafka.clients.consumer.ConsumerConfig.GROUP_ID_CONFIG;
 import static org.apache.kafka.clients.consumer.ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG;
 import static org.springframework.kafka.support.serializer.JsonDeserializer.TRUSTED_PACKAGES;
@@ -30,6 +31,7 @@ class KafkaConsumerConfig {
                                                     final ObjectMapper objectMapper) {
         final Map<String, Object> configs = properties.buildConsumerProperties();
         configs.put(GROUP_ID_CONFIG, "telemetryGroup");
+        configs.put(AUTO_OFFSET_RESET_CONFIG, "earliest");
         configs.put(TRUSTED_PACKAGES, "*");
         configs.put(VALUE_DESERIALIZER_CLASS_CONFIG, JsonDeserializer.class);
         configs.put(
