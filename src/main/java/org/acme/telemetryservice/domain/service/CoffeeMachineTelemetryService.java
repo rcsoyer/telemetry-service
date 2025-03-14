@@ -28,14 +28,7 @@ public class CoffeeMachineTelemetryService
     }
 
     @Override
-    CoffeeMachineTelemetryEvent mapToEntity(
-      final IoTDevice sourceDevice,
-      final CoffeeMachineTelemetryData telemetryData) {
-        return mapper.from(sourceDevice, telemetryData);
-    }
-
-    @Override
-    CoffeeMachineTelemetryEvent persistTelemetryEvent(final CoffeeMachineTelemetryEvent event) {
-        return telemetryRepository.save(event);
+    public void createTelemetryEvent(final CoffeeMachineTelemetryData event) {
+        createTelemetryEvent(event, mapper::from, telemetryRepository::save);
     }
 }
