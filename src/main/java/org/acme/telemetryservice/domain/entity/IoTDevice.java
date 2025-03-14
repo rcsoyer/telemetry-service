@@ -13,7 +13,6 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.NaturalId;
-import org.hibernate.annotations.NaturalIdCache;
 
 import static jakarta.persistence.EnumType.STRING;
 import static lombok.AccessLevel.PROTECTED;
@@ -29,7 +28,6 @@ import static org.hibernate.annotations.CacheConcurrencyStrategy.READ_WRITE;
 @Entity
 @Cacheable
 @ToString
-@NaturalIdCache
 @Cache(usage = READ_WRITE)
 @NoArgsConstructor(access = PROTECTED)
 public class IoTDevice extends BaseAuditEntity {
