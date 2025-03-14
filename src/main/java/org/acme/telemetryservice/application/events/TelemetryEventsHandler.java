@@ -20,7 +20,7 @@ class TelemetryEventsHandler {
     private final CoffeeMachineTelemetryService coffeeMachineTelemetryService;
 
     @KafkaListener(topics = "fridgeEvents")
-    void fridgeTelemetryEventHandler(final FridgeTelemetryData event) {
+    void fridgeTelemetryEventHandler(@Valid final FridgeTelemetryData event) {
         log.info("fridge telemetry event={}", event);
         fridgeTelemetryService.createTelemetryEvent(event);
     }
