@@ -18,6 +18,6 @@ public interface CoffeeMachineTelemetryRepository
              + "FROM CoffeeMachineTelemetryEvent telemetryEvent "
              + "WHERE telemetryEvent.sourceDevice.deviceId = ?1 "
              + "AND telemetryEvent.status IN ('READY', 'ERROR') "
-             + "GROUP BY telemetryEvent.sourceDevice.deviceId, telemetryEvent.status")
+             + "GROUP BY deviceId, deviceStatus")
     List<CoffeeMachineStatusSummary> getMachineEventsSummary(UUID deviceId);
 }
