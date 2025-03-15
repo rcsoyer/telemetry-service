@@ -1,5 +1,6 @@
 package org.acme.telemetryservice.infrastructure.repository;
 
+import java.time.Instant;
 import java.util.UUID;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,6 @@ class CoffeeMachineTelemetryRepositoryTest extends BaseRepositoryTest {
 
     @Test
     void getMachineEventsSummary() {
-        repository.getMachineEventsSummary(UUID.randomUUID());
+        repository.getMachineEventsSummary(UUID.randomUUID(), Instant.now(), null);
     }
 }

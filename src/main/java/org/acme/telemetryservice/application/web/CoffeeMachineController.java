@@ -36,6 +36,7 @@ class CoffeeMachineController {
         schema = @Schema(implementation = Problem.class)))
     List<CoffeeMachineStatusSummary> getTotalCoffeesMade(@PathVariable final UUID deviceId) {
         log.debug("Rest API call to register a new Account");
-        return service.countTotalCoffeesMade(deviceId);
+       // return service.countTotalCoffeesMade(deviceId);
+        return null;
     }
 }

@@ -1,10 +1,10 @@
 package org.acme.telemetryservice.domain.service;
 
 import java.util.List;
-import java.util.UUID;
 import lombok.extern.slf4j.Slf4j;
 import org.acme.telemetryservice.domain.dto.command.CoffeeMachineTelemetryData;
 import org.acme.telemetryservice.domain.dto.query.CoffeeMachineStatusSummary;
+import org.acme.telemetryservice.domain.dto.query.CoffeeMachineTelemetryEventFilter;
 import org.acme.telemetryservice.domain.entity.CoffeeMachineTelemetryEvent;
 import org.acme.telemetryservice.domain.service.mapper.CoffeeMachineTelemetryMapper;
 import org.acme.telemetryservice.infrastructure.repository.CoffeeMachineTelemetryRepository;
@@ -35,7 +35,10 @@ public non-sealed class CoffeeMachineTelemetryService
     }
 
     @Transactional(readOnly = true)
-    public List<CoffeeMachineStatusSummary> countTotalCoffeesMade(final UUID deviceId) {
-        return repository.getMachineEventsSummary(deviceId);
+    public List<CoffeeMachineStatusSummary> countTotalCoffeesMade(
+      final CoffeeMachineTelemetryEventFilter filter) {
+        return repository.getMachineEventsSummary(
+          filter.deviceId(), filter.startDate(), filter.endDate()
+        );
     }
 }
