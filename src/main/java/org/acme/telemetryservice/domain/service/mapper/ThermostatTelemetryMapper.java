@@ -8,6 +8,6 @@ import org.mapstruct.Mapper;
 @Mapper
 public interface ThermostatTelemetryMapper {
 
-    ThermostatTelemetryEvent from(final IoTDevice sourceDevice,
-                                  final ThermostatTelemetryData telemetryData);
+    ThermostatTelemetryEvent from(IoTDevice sourceDevice,
+                                  ThermostatTelemetryData telemetryData);
 }
