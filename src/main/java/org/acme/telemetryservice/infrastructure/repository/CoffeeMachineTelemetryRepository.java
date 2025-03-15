@@ -13,10 +13,11 @@ public interface CoffeeMachineTelemetryRepository
   extends JpaRepository<CoffeeMachineTelemetryEvent, Long> {
 
     @Query("SELECT telemetryEvent.sourceDevice.deviceId AS deviceId, "
-             + "COUNT(telemetryEvent) AS totalCount "
+             + "COUNT(telemetryEvent) AS totalCount, "
+             + "telemetryEvent.status AS deviceStatus "
              + "FROM CoffeeMachineTelemetryEvent telemetryEvent "
              + "WHERE telemetryEvent.sourceDevice.deviceId = ?1 "
-             + "AND telemetryEvent.status IN ('READY', 'ERROR')  "
-             + "GROUP BY telemetryEvent.id, telemetryEvent.status")
+             + "AND telemetryEvent.status IN ('READY', 'ERROR') "
+             + "GROUP BY telemetryEvent.sourceDevice.deviceId, telemetryEvent.status")
     List<CoffeeMachineStatusSummary> getMachineEventsSummary(UUID deviceId);
 }
