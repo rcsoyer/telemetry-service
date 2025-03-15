@@ -1,6 +1,6 @@
 package org.acme.telemetryservice.infrastructure.repository;
 
-import java.util.Optional;
+import java.util.List;
 import java.util.UUID;
 import org.acme.telemetryservice.domain.dto.query.CoffeeMachineStatusSummary;
 import org.acme.telemetryservice.domain.entity.CoffeeMachineTelemetryEvent;
@@ -18,5 +18,5 @@ public interface CoffeeMachineTelemetryRepository
              + "WHERE telemetryEvent.sourceDevice.deviceId = ?1 "
              + "AND telemetryEvent.status IN ('READY', 'ERROR')  "
              + "GROUP BY telemetryEvent.id, telemetryEvent.status")
-    Optional<CoffeeMachineStatusSummary> countTotalCoffeesMade(UUID deviceId);
+    List<CoffeeMachineStatusSummary> getMachineEventsSummary(UUID deviceId);
 }

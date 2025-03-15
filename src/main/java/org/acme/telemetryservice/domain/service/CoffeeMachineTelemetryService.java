@@ -1,7 +1,7 @@
 package org.acme.telemetryservice.domain.service;
 
+import java.util.List;
 import java.util.UUID;
-import java.util.function.Supplier;
 import lombok.extern.slf4j.Slf4j;
 import org.acme.telemetryservice.domain.dto.command.CoffeeMachineTelemetryData;
 import org.acme.telemetryservice.domain.dto.query.CoffeeMachineStatusSummary;
@@ -11,9 +11,6 @@ import org.acme.telemetryservice.infrastructure.repository.CoffeeMachineTelemetr
 import org.acme.telemetryservice.infrastructure.repository.IoTDeviceRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.server.ResponseStatusException;
-
-import static org.springframework.http.HttpStatus.NOT_FOUND;
 
 @Slf4j
 @Service
@@ -24,7 +21,8 @@ public non-sealed class CoffeeMachineTelemetryService
     private final CoffeeMachineTelemetryRepository repository;
     private final CoffeeMachineTelemetryMapper mapper;
 
-    public CoffeeMachineTelemetryService(final IoTDeviceRepository deviceRepository, final CoffeeMachineTelemetryRepository telemetryRepository,
+    public CoffeeMachineTelemetryService(final IoTDeviceRepository deviceRepository,
+                                         final CoffeeMachineTelemetryRepository telemetryRepository,
                                          final CoffeeMachineTelemetryMapper mapper) {
         super(deviceRepository);
         this.repository = telemetryRepository;
@@ -37,18 +35,7 @@ public non-sealed class CoffeeMachineTelemetryService
     }
 
     @Transactional(readOnly = true)
-    public CoffeeMachineStatusSummary countTotalCoffeesMade(final UUID deviceId) {
-        return repository
-                 .countTotalCoffeesMade(deviceId)
-                 .orElseThrow(noDeviceFound(deviceId));
-    }
-
-    private Supplier<ResponseStatusException> noDeviceFound(final UUID deviceId) {
-        return () -> {
-            log.warn("Client of the API provided a deviceId that it's not registered. "
-                       + "Or the machine never finished making coffees. "
-                       + "deviceId={}", deviceId);
-            return new ResponseStatusException(NOT_FOUND, "No information available for this device");
-        };
+    public List<CoffeeMachineStatusSummary> countTotalCoffeesMade(final UUID deviceId) {
+        return repository.getMachineEventsSummary(deviceId);
     }
 }

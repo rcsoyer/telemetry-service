@@ -4,6 +4,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import java.util.List;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -33,7 +34,7 @@ class CoffeeMachineController {
     @ApiResponse(responseCode = "400", description = "Invalid input data",
       content = @Content(mediaType = "application/problem+json",
         schema = @Schema(implementation = Problem.class)))
-    CoffeeMachineStatusSummary getTotalCoffeesMade(@PathVariable final UUID deviceId) {
+    List<CoffeeMachineStatusSummary> getTotalCoffeesMade(@PathVariable final UUID deviceId) {
         log.debug("Rest API call to register a new Account");
         return service.countTotalCoffeesMade(deviceId);
     }
