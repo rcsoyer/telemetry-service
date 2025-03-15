@@ -8,5 +8,5 @@ public interface CoffeeMachineTotalCoffeesMade {
     @NotNull
     UUID getDeviceId();
 
-    long getAllTimeTotalCoffeesMade();
+    int getAllTimeTotalCoffeesMade();
 }
