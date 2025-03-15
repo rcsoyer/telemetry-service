@@ -1,5 +1,6 @@
 package org.acme.telemetryservice.infrastructure.repository;
 
+import java.util.Optional;
 import java.util.UUID;
 import org.acme.telemetryservice.domain.dto.query.CoffeeMachineTotalCoffeesMade;
 import org.acme.telemetryservice.domain.entity.CoffeeMachineTelemetryEvent;
@@ -16,5 +17,5 @@ public interface CoffeeMachineTelemetryRepository
              + "FROM CoffeeMachineTelemetryEvent machine "
              + "WHERE machine.sourceDevice.deviceId = ?1 "
              + "AND machine.status = 'READY'")
-    CoffeeMachineTotalCoffeesMade countTotalCoffeesMade(UUID deviceId);
+    Optional<CoffeeMachineTotalCoffeesMade> countTotalCoffeesMade(UUID deviceId);
 }
