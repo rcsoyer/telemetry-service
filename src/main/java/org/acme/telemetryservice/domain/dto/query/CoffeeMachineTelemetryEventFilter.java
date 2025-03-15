@@ -1,12 +1,16 @@
 package org.acme.telemetryservice.domain.dto.query;
 
+import jakarta.annotation.Nullable;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import java.time.Instant;
 import java.util.UUID;
 
 public record CoffeeMachineTelemetryEventFilter(
-  @NotNull
-  UUID deviceId, Period period) {
+  @NotNull(message = "The source device ID is mandatory")
+  UUID deviceId,
+  @Nullable @Valid
+  Period period) {
 
     public Instant startDate() {
         return period != null && period.startDate() != null
