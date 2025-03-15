@@ -48,7 +48,7 @@ public non-sealed class CoffeeMachineTelemetryService extends TelemetryService<C
                        + "Or the machine never finished making coffees. "
                        + "deviceId={}",
                      deviceId);
-            return new ResponseStatusException(NOT_FOUND, "No device found with provided ID");
+            return new ResponseStatusException(NOT_FOUND, "No information available for this device");
         };
     }
 }
