@@ -10,7 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Transactional
-public class FridgeTelemetryService
+public non-sealed class FridgeTelemetryService
   extends TelemetryService<FridgeTelemetryEvent, FridgeTelemetryData> {
 
     private final FridgeTelemetryRepository telemetryRepository;

@@ -13,8 +13,9 @@ import org.acme.telemetryservice.infrastructure.repository.IoTDeviceRepository;
 
 @Slf4j
 @RequiredArgsConstructor
-abstract class TelemetryService<E extends BaseAuditEventEntity,
-                                 T extends TelemetryData> {
+abstract sealed class TelemetryService<E extends BaseAuditEventEntity,
+                                        T extends TelemetryData>
+  permits CoffeeMachineTelemetryService, FridgeTelemetryService, ThermostatTelemetryService {
 
     private final IoTDeviceRepository deviceRepository;
 
