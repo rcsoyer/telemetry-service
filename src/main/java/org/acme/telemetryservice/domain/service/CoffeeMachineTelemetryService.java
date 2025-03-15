@@ -1,7 +1,9 @@
 package org.acme.telemetryservice.domain.service;
 
+import java.util.UUID;
 import lombok.extern.slf4j.Slf4j;
 import org.acme.telemetryservice.domain.dto.command.CoffeeMachineTelemetryData;
+import org.acme.telemetryservice.domain.dto.query.CoffeeMachineTotalCoffeesMade;
 import org.acme.telemetryservice.domain.entity.CoffeeMachineTelemetryEvent;
 import org.acme.telemetryservice.domain.service.mapper.CoffeeMachineTelemetryMapper;
 import org.acme.telemetryservice.infrastructure.repository.CoffeeMachineTelemetryRepository;
@@ -15,19 +17,24 @@ import org.springframework.transaction.annotation.Transactional;
 public non-sealed class CoffeeMachineTelemetryService
   extends TelemetryService<CoffeeMachineTelemetryEvent, CoffeeMachineTelemetryData> {
 
-    private final CoffeeMachineTelemetryRepository telemetryRepository;
+    private final CoffeeMachineTelemetryRepository repository;
     private final CoffeeMachineTelemetryMapper mapper;
 
     public CoffeeMachineTelemetryService(final IoTDeviceRepository deviceRepository,
                                          final CoffeeMachineTelemetryRepository telemetryRepository,
                                          final CoffeeMachineTelemetryMapper mapper) {
         super(deviceRepository);
-        this.telemetryRepository = telemetryRepository;
+        this.repository = telemetryRepository;
         this.mapper = mapper;
     }
 
     @Override
     public void createTelemetryEvent(final CoffeeMachineTelemetryData event) {
-        createTelemetryEvent(event, mapper::from, telemetryRepository::save);
+        createTelemetryEvent(event, mapper::from, repository::save);
+    }
+
+    @Transactional(readOnly = true)
+    public CoffeeMachineTotalCoffeesMade countTotalCoffeesMade(final UUID deviceId) {
+        return repository.countTotalCoffeesMade(deviceId);
     }
 }
