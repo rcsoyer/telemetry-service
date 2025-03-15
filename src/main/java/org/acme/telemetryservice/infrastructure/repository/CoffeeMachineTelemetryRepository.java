@@ -1,5 +1,7 @@
 package org.acme.telemetryservice.infrastructure.repository;
 
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 import java.time.Instant;
 import java.util.List;
 import java.util.UUID;
@@ -25,7 +27,7 @@ public interface CoffeeMachineTelemetryRepository
              + "OR (telemetryEvent.createdAt BETWEEN :startDate AND :endDate) "
              + "GROUP BY telemetryEvent.sourceDevice.deviceId, telemetryEvent.status")
     List<CoffeeMachineStatusSummary> getMachineEventsSummary(
-      @Param("deviceId") UUID deviceId,
-      @Param("startDate") Instant startDate,
-      @Param("endDate") Instant endDate);
+      @Nonnull @Param("deviceId") UUID deviceId,
+      @Nullable @Param("startDate") Instant startDate,
+      @Nullable @Param("endDate") Instant endDate);
 }
