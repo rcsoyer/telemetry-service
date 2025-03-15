@@ -12,10 +12,10 @@ import org.springframework.stereotype.Repository;
 public interface CoffeeMachineTelemetryRepository
   extends JpaRepository<CoffeeMachineTelemetryEvent, Long> {
 
-    @Query("SELECT machine.sourceDevice.deviceId AS deviceId, "
-             + "COUNT(machine) AS allTimeTotalCoffeesMade "
-             + "FROM CoffeeMachineTelemetryEvent machine "
-             + "WHERE machine.sourceDevice.deviceId = ?1 "
-             + "AND machine.status = 'READY'")
+    @Query("SELECT telemetryEvent.sourceDevice.deviceId AS deviceId, "
+             + "COUNT(telemetryEvent) AS allTimeTotalCoffeesMade "
+             + "FROM CoffeeMachineTelemetryEvent telemetryEvent "
+             + "WHERE telemetryEvent.sourceDevice.deviceId = ?1 "
+             + "AND telemetryEvent.status = 'READY'")
     Optional<CoffeeMachineTotalCoffeesMade> countTotalCoffeesMade(UUID deviceId);
 }
