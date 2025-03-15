@@ -7,7 +7,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.acme.telemetryservice.domain.dto.query.CoffeeMachineTotalCoffeesMade;
+import org.acme.telemetryservice.domain.dto.query.CoffeeMachineStatusSummary;
 import org.acme.telemetryservice.domain.service.CoffeeMachineTelemetryService;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -33,7 +33,7 @@ class CoffeeMachineController {
     @ApiResponse(responseCode = "400", description = "Invalid input data",
       content = @Content(mediaType = "application/problem+json",
         schema = @Schema(implementation = Problem.class)))
-    CoffeeMachineTotalCoffeesMade getTotalCoffeesMade(@PathVariable final UUID deviceId) {
+    CoffeeMachineStatusSummary getTotalCoffeesMade(@PathVariable final UUID deviceId) {
         log.debug("Rest API call to register a new Account");
         return service.countTotalCoffeesMade(deviceId);
     }

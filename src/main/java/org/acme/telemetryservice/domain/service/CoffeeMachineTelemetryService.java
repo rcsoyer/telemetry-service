@@ -4,7 +4,7 @@ import java.util.UUID;
 import java.util.function.Supplier;
 import lombok.extern.slf4j.Slf4j;
 import org.acme.telemetryservice.domain.dto.command.CoffeeMachineTelemetryData;
-import org.acme.telemetryservice.domain.dto.query.CoffeeMachineTotalCoffeesMade;
+import org.acme.telemetryservice.domain.dto.query.CoffeeMachineStatusSummary;
 import org.acme.telemetryservice.domain.entity.CoffeeMachineTelemetryEvent;
 import org.acme.telemetryservice.domain.service.mapper.CoffeeMachineTelemetryMapper;
 import org.acme.telemetryservice.infrastructure.repository.CoffeeMachineTelemetryRepository;
@@ -37,7 +37,7 @@ public non-sealed class CoffeeMachineTelemetryService
     }
 
     @Transactional(readOnly = true)
-    public CoffeeMachineTotalCoffeesMade countTotalCoffeesMade(final UUID deviceId) {
+    public CoffeeMachineStatusSummary countTotalCoffeesMade(final UUID deviceId) {
         return repository
                  .countTotalCoffeesMade(deviceId)
                  .orElseThrow(noDeviceFound(deviceId));
