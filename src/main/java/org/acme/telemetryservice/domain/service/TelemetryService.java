@@ -20,9 +20,9 @@ abstract class TelemetryService<E extends BaseAuditEventEntity,
 
     public abstract void createTelemetryEvent(T event);
 
-    protected void createTelemetryEvent(T event,
-                                        BiFunction<IoTDevice, T, E> mapToEntity,
-                                        UnaryOperator<E> persistEvent) {
+    protected final void createTelemetryEvent(T event,
+                                              BiFunction<IoTDevice, T, E> mapToEntity,
+                                              UnaryOperator<E> persistEvent) {
         deviceRepository
           .findByDeviceId(event.deviceId())
           .map(sourceDevice -> mapToEntity.apply(sourceDevice, event))
