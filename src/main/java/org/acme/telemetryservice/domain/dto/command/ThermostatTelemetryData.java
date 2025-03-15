@@ -1,4 +1,7 @@
 package org.acme.telemetryservice.domain.dto.command;
 
-public record ThermostatTelemetryData(double temperature, double humidity) {
+import java.util.UUID;
+
+public record ThermostatTelemetryData(UUID deviceId, double temperature, double humidity)
+  implements TelemetryData {
 }
