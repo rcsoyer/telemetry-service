@@ -46,8 +46,7 @@ public non-sealed class CoffeeMachineTelemetryService extends TelemetryService<C
         return () -> {
             log.warn("Client of the API provided a deviceId that it's not registered."
                        + "Or the machine never finished making coffees. "
-                       + "deviceId={}",
-                     deviceId);
+                       + "deviceId={}", deviceId);
             return new ResponseStatusException(NOT_FOUND, "No information available for this device");
         };
     }
