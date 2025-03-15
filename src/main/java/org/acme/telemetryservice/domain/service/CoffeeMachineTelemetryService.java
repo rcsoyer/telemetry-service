@@ -35,7 +35,7 @@ public non-sealed class CoffeeMachineTelemetryService
     }
 
     @Transactional(readOnly = true)
-    public List<CoffeeMachineStatusSummary> countTotalCoffeesMade(
+    public List<CoffeeMachineStatusSummary> summarize(
       final CoffeeMachineTelemetryEventFilter filter) {
         return repository.getMachineEventsSummary(
           filter.deviceId(), filter.startDate(), filter.endDate()
