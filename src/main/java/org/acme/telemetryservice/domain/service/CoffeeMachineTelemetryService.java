@@ -18,7 +18,8 @@ import static org.springframework.http.HttpStatus.NOT_FOUND;
 @Slf4j
 @Service
 @Transactional
-public non-sealed class CoffeeMachineTelemetryService extends TelemetryService<CoffeeMachineTelemetryEvent, CoffeeMachineTelemetryData> {
+public non-sealed class CoffeeMachineTelemetryService
+  extends TelemetryService<CoffeeMachineTelemetryEvent, CoffeeMachineTelemetryData> {
 
     private final CoffeeMachineTelemetryRepository repository;
     private final CoffeeMachineTelemetryMapper mapper;
