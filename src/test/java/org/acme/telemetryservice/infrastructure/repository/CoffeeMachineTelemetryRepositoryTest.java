@@ -53,7 +53,11 @@ class CoffeeMachineTelemetryRepositoryTest extends BaseRepositoryTest {
                                                  Instant.now());
 
             assertThat(result)
-              .hasSize(1);
+              .hasSize(1)
+              .satisfiesExactly(
+                summaryReady ->
+                  assertThat(summaryReady)
+                    .hasFieldOrPropertyWithValue("deviceId", sourceCoffeeMachine.getDeviceId()));
         }
 
     }
