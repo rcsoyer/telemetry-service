@@ -43,7 +43,7 @@ databaseChangeLog:
                   remarks: The manufacturer's device model name
               - column:
                   name: device_type
-                  type: varchar(10)
+                  type: varchar(30)
                   constraints:
                     nullable: false
                   remarks: The predefined via enum, device's type
