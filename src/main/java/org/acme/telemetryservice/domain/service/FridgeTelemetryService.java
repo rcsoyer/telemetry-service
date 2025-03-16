@@ -32,6 +32,9 @@ public non-sealed class FridgeTelemetryService
 
     @Transactional(readOnly = true)
     public FridgeSummary summarize(final TelemetryEventFilter filter) {
-        return null;
+        return
+          telemetryRepository
+            .getFridgeTelemetrySummary(filter.deviceId(), filter.getStartDate(), filter.getEndDate())
+            .orElseThrow(notFoundMatchingFilter(filter));
     }
 }
