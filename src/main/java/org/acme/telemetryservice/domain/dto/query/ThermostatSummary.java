@@ -24,4 +24,8 @@ public interface ThermostatSummary {
     double getMaxHumidity();
 
     double getMinHumidity();
+
+    double getMedianTemperature();
+
+    double getMedianHumidity();
 }
