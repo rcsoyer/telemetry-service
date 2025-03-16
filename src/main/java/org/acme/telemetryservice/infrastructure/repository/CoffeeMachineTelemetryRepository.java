@@ -18,7 +18,8 @@ public interface CoffeeMachineTelemetryRepository
 
     @Query("SELECT telemetryEvent.sourceDevice.deviceId AS deviceId, "
              + "COUNT(telemetryEvent) AS totalCount, "
-             + "telemetryEvent.status AS deviceStatus "
+             + "telemetryEvent.status AS deviceStatus, "
+             + "PERCENTILE_CONT(0.5) WITHIN GROUP (ORDER BY telemetryEvent.id) AS median "
              + "FROM CoffeeMachineTelemetryEvent telemetryEvent "
              + "WHERE telemetryEvent.sourceDevice.deviceId = :deviceId "
              + "AND telemetryEvent.status IN ('READY', 'ERROR') "

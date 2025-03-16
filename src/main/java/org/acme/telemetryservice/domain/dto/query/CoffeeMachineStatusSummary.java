@@ -19,4 +19,6 @@ public interface CoffeeMachineStatusSummary {
 
     @NotNull
     DeviceStatus getDeviceStatus();
+
+    double getMedian();
 }
