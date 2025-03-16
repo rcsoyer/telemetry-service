@@ -12,6 +12,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import static org.acme.telemetryservice.domain.entity.CoffeeMachineTelemetryEvent.DeviceStatus.ERROR;
+import static org.acme.telemetryservice.domain.entity.CoffeeMachineTelemetryEvent.DeviceStatus.IN_PROGRESS;
 import static org.acme.telemetryservice.domain.entity.CoffeeMachineTelemetryEvent.DeviceStatus.READY;
 import static org.acme.telemetryservice.domain.entity.IoTDevice.IotDeviceType.COFFEE_MACHINE;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -42,19 +43,23 @@ class CoffeeMachineTelemetryRepositoryTest extends BaseRepositoryTest {
 
         @BeforeEach
         void setUp() {
-            repository.save(CoffeeMachineTelemetryEvent
-                              .builder()
-                              .sourceDevice(sourceCoffeeMachine)
-                              .status(READY)
-                              .build()
-            );
-
-            repository.save(CoffeeMachineTelemetryEvent
-                              .builder()
-                              .sourceDevice(sourceCoffeeMachine)
-                              .status(ERROR)
-                              .build()
-            );
+            repository.saveAll(List.of(
+              CoffeeMachineTelemetryEvent
+                .builder()
+                .sourceDevice(sourceCoffeeMachine)
+                .status(READY)
+                .build(),
+              CoffeeMachineTelemetryEvent
+                .builder()
+                .sourceDevice(sourceCoffeeMachine)
+                .status(ERROR)
+                .build(),
+              CoffeeMachineTelemetryEvent
+                .builder()
+                .sourceDevice(sourceCoffeeMachine)
+                .status(IN_PROGRESS)
+                .build()
+            ));
         }
 
         @Test
