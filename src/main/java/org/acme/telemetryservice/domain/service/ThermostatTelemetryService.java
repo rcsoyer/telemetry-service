@@ -1,8 +1,8 @@
 package org.acme.telemetryservice.domain.service;
 
 import org.acme.telemetryservice.domain.dto.command.ThermostatTelemetryData;
-import org.acme.telemetryservice.domain.dto.query.ThermostatSummary;
 import org.acme.telemetryservice.domain.dto.query.TelemetryEventFilter;
+import org.acme.telemetryservice.domain.dto.query.ThermostatSummary;
 import org.acme.telemetryservice.domain.entity.ThermostatTelemetryEvent;
 import org.acme.telemetryservice.domain.service.mapper.ThermostatTelemetryMapper;
 import org.acme.telemetryservice.infrastructure.repository.IoTDeviceRepository;
@@ -32,8 +32,7 @@ public non-sealed class ThermostatTelemetryService
     }
 
     @Transactional(readOnly = true)
-    public ThermostatSummary summarize(
-      final TelemetryEventFilter filter) {
+    public ThermostatSummary summarize(final TelemetryEventFilter filter) {
         return repository.getMachineEventsSummary(
           filter.deviceId(), filter.getStartDate(), filter.getEndDate()
         );
