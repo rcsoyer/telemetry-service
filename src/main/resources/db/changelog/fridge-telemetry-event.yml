@@ -41,3 +41,13 @@ databaseChangeLog:
                   constraints:
                     nullable: false
                   remarks: The date time of when this record was created
+  - changeSet:
+      id: fridge-telemetry-event.v3
+      author: rcsoyer
+      changes:
+        - createIndex:
+            indexName: idx_date_created
+            tableName: fridge_telemetry_event
+            columns:
+              - column:
+                  name: date_created
