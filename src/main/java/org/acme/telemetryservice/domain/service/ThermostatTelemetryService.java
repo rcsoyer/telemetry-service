@@ -37,7 +37,7 @@ public non-sealed class ThermostatTelemetryService
     public ThermostatSummary summarize(final TelemetryEventFilter filter) {
         return
           repository
-            .getMachineEventsSummary(filter.deviceId(), filter.getStartDate(), filter.getEndDate())
+            .getThermostatSummary(filter.deviceId(), filter.getStartDate(), filter.getEndDate())
             .orElseThrow(notFoundMatchingFilter(filter));
     }
 }

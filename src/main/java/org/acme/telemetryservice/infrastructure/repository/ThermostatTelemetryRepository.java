@@ -29,7 +29,7 @@ public interface ThermostatTelemetryRepository
              + "OR cast(:endDate as timestamp) is null) "
              + "OR telemetryEvent.createdAt BETWEEN :startDate AND :endDate) "
              + "GROUP BY telemetryEvent.sourceDevice.deviceId")
-    Optional<ThermostatSummary> getMachineEventsSummary(
+    Optional<ThermostatSummary> getThermostatSummary(
       @Nonnull @Param("deviceId") UUID deviceId,
       @Nullable @Param("startDate") Instant startDate,
       @Nullable @Param("endDate") Instant endDate);
