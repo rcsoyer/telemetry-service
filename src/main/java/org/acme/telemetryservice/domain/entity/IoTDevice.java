@@ -22,7 +22,8 @@ import static org.apache.commons.lang3.StringUtils.normalizeSpace;
 import static org.hibernate.annotations.CacheConcurrencyStrategy.READ_WRITE;
 
 /**
- * Generic IoT device registration. <br/> Basic, common data expected for all IoT devices registered in the platform
+ * Generic IoT device registration.
+ * <br/> Basic, common data expected for all IoT devices registered in the platform
  */
 @Getter
 @Entity
@@ -37,10 +38,10 @@ public class IoTDevice extends BaseAuditEntity {
      * <br/> For instance, for other applications to store this globally unique ID on their side.
      * <br/> In this way the database ID, is never exposed to the outside world.
      */
-    @NaturalId
     @NotNull(message = "A device's ID is mandatory")
     private UUID deviceId;
 
+    @NaturalId
     @NotBlank(message = "A device's nick name in the platform is mandatory")
     private String deviceName;
 
