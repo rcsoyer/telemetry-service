@@ -15,9 +15,10 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.NaturalId;
 
 import static jakarta.persistence.EnumType.STRING;
+import static java.util.UUID.randomUUID;
 import static lombok.AccessLevel.PROTECTED;
-import static org.apache.commons.lang3.ObjectUtils.allNotNull;
 import static org.apache.commons.lang3.StringUtils.capitalize;
+import static org.apache.commons.lang3.StringUtils.isNoneBlank;
 import static org.apache.commons.lang3.StringUtils.normalizeSpace;
 import static org.hibernate.annotations.CacheConcurrencyStrategy.READ_WRITE;
 
@@ -53,11 +54,12 @@ public class IoTDevice extends BaseAuditEntity {
     private IotDeviceType deviceType;
 
     @Builder
-    private IoTDevice(final String deviceName, final String deviceModel, final IotDeviceType deviceType) {
+    private IoTDevice(final String deviceName, final String deviceModel,
+                      final IotDeviceType deviceType) {
         this.deviceName = capitalize(normalizeSpace(deviceName));
         this.deviceModel = capitalize(normalizeSpace(deviceModel));
         this.deviceType = deviceType;
-        this.deviceId = UUID.randomUUID();
+        this.deviceId = randomUUID();
     }
 
     @Override
@@ -67,8 +69,8 @@ public class IoTDevice extends BaseAuditEntity {
         }
 
         final var anotherDevice = (IoTDevice) other;
-        if (allNotNull(getId(), anotherDevice.getId())) {
-            return getId().equals(anotherDevice.getId());
+        if (isNoneBlank(getDeviceName(), anotherDevice.getDeviceName())) {
+            return getDeviceName().equalsIgnoreCase(anotherDevice.getDeviceName());
         }
 
         return false;
@@ -76,7 +78,7 @@ public class IoTDevice extends BaseAuditEntity {
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(getId());
+        return Objects.hashCode(getDeviceName().toUpperCase());
     }
 
     public enum IotDeviceType {
