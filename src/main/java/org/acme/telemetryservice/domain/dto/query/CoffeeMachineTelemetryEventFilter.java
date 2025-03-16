@@ -5,8 +5,10 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import java.time.Instant;
 import java.util.UUID;
+import org.springframework.web.bind.annotation.PathVariable;
 
 public record CoffeeMachineTelemetryEventFilter(
+  @PathVariable
   @NotNull(message = "The source device ID is mandatory")
   UUID deviceId,
   @Nullable @Valid
