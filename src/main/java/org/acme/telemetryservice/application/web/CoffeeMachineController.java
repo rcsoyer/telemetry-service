@@ -4,6 +4,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import jakarta.validation.Valid;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -34,7 +35,7 @@ class CoffeeMachineController {
       content = @Content(mediaType = "application/problem+json",
         schema = @Schema(implementation = Problem.class)))
     List<CoffeeMachineStatusSummary> getTotalCoffeesMade(
-      final CoffeeMachineTelemetryEventFilter filter) {
+      @Valid final CoffeeMachineTelemetryEventFilter filter) {
         log.debug("REST API call to get summary information about a coffee machine. filter={}",
                   filter);
         return service.summarize(filter);

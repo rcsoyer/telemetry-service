@@ -38,7 +38,7 @@ public non-sealed class CoffeeMachineTelemetryService
     public List<CoffeeMachineStatusSummary> summarize(
       final CoffeeMachineTelemetryEventFilter filter) {
         return repository.getMachineEventsSummary(
-          filter.deviceId(), filter.startDate(), filter.endDate()
+          filter.deviceId(), filter.getStartDate(), filter.getEndDate()
         );
     }
 }
