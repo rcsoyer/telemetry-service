@@ -137,6 +137,5 @@ class CoffeeMachineTelemetryRepositoryTest extends BaseRepositoryTest {
               Arguments.of(null, Instant.parse("2025-01-01T10:15:30.00Z"))
             );
         }
-
     }
 }
