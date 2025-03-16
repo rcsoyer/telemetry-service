@@ -38,7 +38,7 @@ class KafkaConsumerConfig implements KafkaListenerConfigurer {
     @Bean
     ConsumerFactory<String, Object> consumerFactory(final KafkaProperties properties,
                                                     final ObjectMapper objectMapper) {
-        final var configs = new HashMap<String, Object>();
+        final var configs = new HashMap<String, Object>(6);
         configs.put(BOOTSTRAP_SERVERS_CONFIG, properties.getBootstrapServers());
         configs.put(GROUP_ID_CONFIG, "telemetryGroup");
         configs.put(AUTO_OFFSET_RESET_CONFIG, "earliest");
