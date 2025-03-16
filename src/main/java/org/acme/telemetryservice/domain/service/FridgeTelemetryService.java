@@ -1,6 +1,5 @@
 package org.acme.telemetryservice.domain.service;
 
-import jakarta.validation.Valid;
 import org.acme.telemetryservice.domain.dto.command.FridgeTelemetryData;
 import org.acme.telemetryservice.domain.dto.query.FridgeSummary;
 import org.acme.telemetryservice.domain.dto.query.TelemetryEventFilter;
@@ -31,7 +30,8 @@ public non-sealed class FridgeTelemetryService
         createTelemetryEvent(event, mapper::from, telemetryRepository::save);
     }
 
-    public FridgeSummary summarize(final @Valid TelemetryEventFilter filter) {
+    @Transactional(readOnly = true)
+    public FridgeSummary summarize(final TelemetryEventFilter filter) {
         return null;
     }
 }
