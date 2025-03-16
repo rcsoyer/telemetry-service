@@ -34,7 +34,7 @@ public non-sealed class FridgeTelemetryService
     public FridgeSummary summarize(final TelemetryEventFilter filter) {
         return
           repository
-            .getFridgeTelemetrySummary(filter.deviceId(), filter.getStartDate(), filter.getEndDate())
+            .getFridgeSummary(filter.deviceId(), filter.getStartDate(), filter.getEndDate())
             .orElseThrow(notFoundMatchingFilter(filter));
     }
 }

@@ -25,7 +25,7 @@ public interface FridgeTelemetryRepository extends JpaRepository<FridgeTelemetry
              + "OR cast(:endDate as timestamp) is null) "
              + "OR telemetryEvent.createdAt BETWEEN :startDate AND :endDate) "
              + "GROUP BY telemetryEvent.sourceDevice.deviceId")
-    Optional<FridgeSummary> getFridgeTelemetrySummary(
+    Optional<FridgeSummary> getFridgeSummary(
       @Nonnull @Param("deviceId") UUID deviceId,
       @Nullable @Param("startDate") Instant startDate,
       @Nullable @Param("endDate") Instant endDate);
