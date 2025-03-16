@@ -20,4 +20,8 @@ public interface ThermostatSummary {
     double getMaxTemperature();
 
     double getMinTemperature();
+
+    double getMaxHumidity();
+
+    double getMinHumidity();
 }

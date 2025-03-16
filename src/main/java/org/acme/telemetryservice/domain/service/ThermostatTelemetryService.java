@@ -1,6 +1,5 @@
 package org.acme.telemetryservice.domain.service;
 
-import java.util.List;
 import org.acme.telemetryservice.domain.dto.command.ThermostatTelemetryData;
 import org.acme.telemetryservice.domain.dto.query.ThermostatSummary;
 import org.acme.telemetryservice.domain.dto.query.ThermostatTelemetryEventFilter;
@@ -33,7 +32,7 @@ public non-sealed class ThermostatTelemetryService
     }
 
     @Transactional(readOnly = true)
-    public List<ThermostatSummary> summarize(
+    public ThermostatSummary summarize(
       final ThermostatTelemetryEventFilter filter) {
         return repository.getMachineEventsSummary(
           filter.deviceId(), filter.getStartDate(), filter.getEndDate()

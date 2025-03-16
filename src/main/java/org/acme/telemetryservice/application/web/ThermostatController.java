@@ -5,7 +5,6 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import jakarta.validation.Valid;
-import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.acme.telemetryservice.domain.dto.query.ThermostatSummary;
@@ -34,7 +33,7 @@ class ThermostatController {
     @ApiResponse(responseCode = "400", description = "Invalid input data",
       content = @Content(mediaType = "application/problem+json",
         schema = @Schema(implementation = Problem.class)))
-    List<ThermostatSummary> getSummaryBy(
+    ThermostatSummary getSummaryBy(
       @Valid final ThermostatTelemetryEventFilter filter) {
         log.debug("REST API call to get summary information about a thermostat. filter={}",
                   filter);
