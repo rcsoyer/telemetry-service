@@ -7,7 +7,7 @@ import java.util.UUID;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import static java.time.ZoneId.systemDefault;
+import static java.time.ZoneOffset.UTC;
 
 public record CoffeeMachineTelemetryEventFilter(
   @PathVariable
@@ -21,13 +21,15 @@ public record CoffeeMachineTelemetryEventFilter(
 
     public Instant getStartDate() {
         return startDate() != null
-                 ? startDate().atStartOfDay(systemDefault()).toInstant()
+                 ? startDate().atStartOfDay(UTC).toInstant()
                  : null;
     }
 
     public Instant getEndDate() {
         return endDate() != null
-                 ? endDate().atStartOfDay(systemDefault()).toInstant()
+                 ? endDate().atTime(23, 59, 59)
+                            .atZone(UTC)
+                            .toInstant()
                  : null;
     }
 }
