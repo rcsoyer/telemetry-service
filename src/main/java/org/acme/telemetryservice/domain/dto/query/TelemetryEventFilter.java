@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import static java.time.ZoneOffset.UTC;
 
-public record CoffeeMachineTelemetryEventFilter(
+public record TelemetryEventFilter(
   @PathVariable
   UUID deviceId,
   @PastOrPresent(message = "The start date of the period cannot be in the future")

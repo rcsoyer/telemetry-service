@@ -8,7 +8,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.acme.telemetryservice.domain.dto.query.ThermostatSummary;
-import org.acme.telemetryservice.domain.dto.query.ThermostatTelemetryEventFilter;
+import org.acme.telemetryservice.domain.dto.query.TelemetryEventFilter;
 import org.acme.telemetryservice.domain.service.ThermostatTelemetryService;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -34,7 +34,7 @@ class ThermostatController {
       content = @Content(mediaType = "application/problem+json",
         schema = @Schema(implementation = Problem.class)))
     ThermostatSummary getSummaryBy(
-      @Valid final ThermostatTelemetryEventFilter filter) {
+      @Valid final TelemetryEventFilter filter) {
         log.debug("REST API call to get summary information about a thermostat. filter={}",
                   filter);
         return service.summarize(filter);

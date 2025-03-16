@@ -4,7 +4,7 @@ import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 import org.acme.telemetryservice.domain.dto.command.CoffeeMachineTelemetryData;
 import org.acme.telemetryservice.domain.dto.query.CoffeeMachineStatusSummary;
-import org.acme.telemetryservice.domain.dto.query.CoffeeMachineTelemetryEventFilter;
+import org.acme.telemetryservice.domain.dto.query.TelemetryEventFilter;
 import org.acme.telemetryservice.domain.entity.CoffeeMachineTelemetryEvent;
 import org.acme.telemetryservice.domain.service.mapper.CoffeeMachineTelemetryMapper;
 import org.acme.telemetryservice.infrastructure.repository.CoffeeMachineTelemetryRepository;
@@ -35,8 +35,7 @@ public non-sealed class CoffeeMachineTelemetryService
     }
 
     @Transactional(readOnly = true)
-    public List<CoffeeMachineStatusSummary> summarize(
-      final CoffeeMachineTelemetryEventFilter filter) {
+    public List<CoffeeMachineStatusSummary> summarize(final TelemetryEventFilter filter) {
         return repository.getMachineEventsSummary(
           filter.deviceId(), filter.getStartDate(), filter.getEndDate()
         );

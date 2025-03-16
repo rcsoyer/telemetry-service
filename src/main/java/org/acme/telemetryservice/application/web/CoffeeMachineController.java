@@ -9,7 +9,7 @@ import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.acme.telemetryservice.domain.dto.query.CoffeeMachineStatusSummary;
-import org.acme.telemetryservice.domain.dto.query.CoffeeMachineTelemetryEventFilter;
+import org.acme.telemetryservice.domain.dto.query.TelemetryEventFilter;
 import org.acme.telemetryservice.domain.service.CoffeeMachineTelemetryService;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -35,7 +35,7 @@ class CoffeeMachineController {
       content = @Content(mediaType = "application/problem+json",
         schema = @Schema(implementation = Problem.class)))
     List<CoffeeMachineStatusSummary> getTotalCoffeesMade(
-      @Valid final CoffeeMachineTelemetryEventFilter filter) {
+      @Valid final TelemetryEventFilter filter) {
         log.debug("REST API call to get summary information about a coffee machine. filter={}",
                   filter);
         return service.summarize(filter);
