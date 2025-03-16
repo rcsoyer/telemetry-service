@@ -10,6 +10,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.util.ReflectionTestUtils;
 
 import static org.acme.telemetryservice.domain.entity.CoffeeMachineTelemetryEvent.DeviceStatus.ERROR;
 import static org.acme.telemetryservice.domain.entity.CoffeeMachineTelemetryEvent.DeviceStatus.IN_PROGRESS;
@@ -43,6 +44,12 @@ class CoffeeMachineTelemetryRepositoryTest extends BaseRepositoryTest {
 
         @BeforeEach
         void setUp() {
+            final var eventOutOfPeriod = CoffeeMachineTelemetryEvent
+                                           .builder()
+                                           .sourceDevice(sourceCoffeeMachine)
+                                           .status(READY)
+                                           .build();
+
             repository.saveAll(List.of(
               CoffeeMachineTelemetryEvent
                 .builder()
@@ -58,8 +65,15 @@ class CoffeeMachineTelemetryRepositoryTest extends BaseRepositoryTest {
                 .builder()
                 .sourceDevice(sourceCoffeeMachine)
                 .status(IN_PROGRESS)
-                .build()
+                .build(),
+              eventOutOfPeriod
             ));
+
+            ReflectionTestUtils
+              .setField(eventOutOfPeriod, "createdAt",
+                        Instant.parse("2019-02-03T10:15:30.00Z"));
+
+            repository.save(eventOutOfPeriod);
         }
 
         @Test
@@ -101,7 +115,7 @@ class CoffeeMachineTelemetryRepositoryTest extends BaseRepositoryTest {
                   assertThat(summaryReady)
                     .hasFieldOrPropertyWithValue("deviceId", deviceId)
                     .hasFieldOrPropertyWithValue("deviceStatus", READY)
-                    .hasFieldOrPropertyWithValue("totalCount", 1),
+                    .hasFieldOrPropertyWithValue("totalCount", 2),
                 summaryError ->
                   assertThat(summaryError)
                     .hasFieldOrPropertyWithValue("deviceId", deviceId)

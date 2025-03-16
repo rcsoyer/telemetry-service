@@ -38,7 +38,7 @@ public abstract class BaseAuditEventEntity {
     private Long id;
 
     @CreatedDate
-    @Column(name = "date_created", updatable = false)
+    @Column(name = "date_created")
     private Instant createdAt;
 
     /**
