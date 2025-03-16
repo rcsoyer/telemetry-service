@@ -65,13 +65,17 @@ class CoffeeMachineTelemetryRepositoryTest extends BaseRepositoryTest {
 
             assertThat(result)
               .hasSize(2)
-              .satisfiesExactly(
+              .satisfiesExactlyInAnyOrder(
                 summaryReady ->
                   assertThat(summaryReady)
-                    .hasFieldOrPropertyWithValue("deviceId", deviceId),
+                    .hasFieldOrPropertyWithValue("deviceId", deviceId)
+                    .hasFieldOrPropertyWithValue("deviceStatus", READY)
+                    .hasFieldOrPropertyWithValue("totalCount", 1),
                 summaryError ->
                   assertThat(summaryError)
                     .hasFieldOrPropertyWithValue("deviceId", deviceId)
+                    .hasFieldOrPropertyWithValue("deviceStatus", ERROR)
+                    .hasFieldOrPropertyWithValue("totalCount", 1)
               );
         }
 
