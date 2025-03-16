@@ -18,7 +18,8 @@ import org.zalando.problem.spring.web.advice.security.SecurityAdviceTrait;
 import static org.springframework.http.HttpStatus.CONFLICT;
 
 /**
- * Handles exceptions thrown by the application and wraps then with Problem details data structure. <br/> Mostly, the exception handlers are already
+ * Handles exceptions thrown by the application and wraps then with Problem details data structure.
+ * <br/> Mostly, the exception handlers are already
  * implemented by the {@link ProblemHandling} interface.
  *
  * @see <a href="https://datatracker.ietf.org/doc/html/rfc9457">Problem Details</a>
@@ -28,7 +29,8 @@ import static org.springframework.http.HttpStatus.CONFLICT;
 class ExceptionHandlerAdvice implements ProblemHandling, SecurityAdviceTrait {
 
     /**
-     * Handles exceptions related to data integrity violations that may happen concurrently. <br/> Mainly is expected here to catch attempts to
+     * Handles exceptions related to data integrity violations that may happen concurrently.
+     * <br/> Mainly is expected here to catch attempts to
      * duplicate data on insert or update operations.
      */
     @ExceptionHandler({
@@ -37,7 +39,8 @@ class ExceptionHandlerAdvice implements ProblemHandling, SecurityAdviceTrait {
       SQLIntegrityConstraintViolationException.class
     })
     ResponseEntity<Problem> dataIntegrityViolationHandler(final Exception error) {
-        log.warn("There was an attempt to create or update data that violates integrity constraints", error);
+        log.warn("There was an attempt to create or update data that violates integrity constraints",
+                 error);
         final var problem = Problem.builder()
                                    .withCause(toProblem(error))
                                    .withStatus(Status.CONFLICT);
