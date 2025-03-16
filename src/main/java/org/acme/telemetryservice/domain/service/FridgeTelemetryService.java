@@ -15,25 +15,25 @@ import org.springframework.transaction.annotation.Transactional;
 public non-sealed class FridgeTelemetryService
   extends TelemetryService<FridgeTelemetryEvent, FridgeTelemetryData> {
 
-    private final FridgeTelemetryRepository telemetryRepository;
+    private final FridgeTelemetryRepository repository;
     private final FridgeTelemetryMapper mapper;
 
     public FridgeTelemetryService(final IoTDeviceRepository deviceRepository,
                                   final FridgeTelemetryRepository telemetryRepository,
                                   final FridgeTelemetryMapper mapper) {
         super(deviceRepository);
-        this.telemetryRepository = telemetryRepository;
+        this.repository = telemetryRepository;
         this.mapper = mapper;
     }
 
     public void createTelemetryEvent(final FridgeTelemetryData event) {
-        createTelemetryEvent(event, mapper::from, telemetryRepository::save);
+        createTelemetryEvent(event, mapper::from, repository::save);
     }
 
     @Transactional(readOnly = true)
     public FridgeSummary summarize(final TelemetryEventFilter filter) {
         return
-          telemetryRepository
+          repository
             .getFridgeTelemetrySummary(filter.deviceId(), filter.getStartDate(), filter.getEndDate())
             .orElseThrow(notFoundMatchingFilter(filter));
     }
