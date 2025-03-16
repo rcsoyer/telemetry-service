@@ -86,7 +86,7 @@ class CoffeeMachineTelemetryRepositoryTest extends BaseRepositoryTest {
             final UUID deviceId = sourceCoffeeMachine.getDeviceId();
 
             final List<CoffeeMachineStatusSummary> result =
-              repository.getMachineEventsSummary(deviceId,
+              repository.getCoffeeMachineSummary(deviceId,
                                                  Instant.parse("2025-01-01T10:15:30.00Z"),
                                                  Instant.now());
 
@@ -109,7 +109,7 @@ class CoffeeMachineTelemetryRepositoryTest extends BaseRepositoryTest {
         @Test
         void getMachineEventsSummary_nothingFoundByDeviceId() {
             final List<CoffeeMachineStatusSummary> result =
-              repository.getMachineEventsSummary(randomUUID(), null, null);
+              repository.getCoffeeMachineSummary(randomUUID(), null, null);
 
             assertThat(result).isEmpty();
         }
@@ -121,7 +121,7 @@ class CoffeeMachineTelemetryRepositoryTest extends BaseRepositoryTest {
             final UUID deviceId = sourceCoffeeMachine.getDeviceId();
 
             final List<CoffeeMachineStatusSummary> result =
-              repository.getMachineEventsSummary(deviceId, startDate, endDate);
+              repository.getCoffeeMachineSummary(deviceId, startDate, endDate);
 
             assertThat(result)
               .hasSize(2)

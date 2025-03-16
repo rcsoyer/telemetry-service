@@ -36,7 +36,7 @@ public non-sealed class CoffeeMachineTelemetryService
 
     @Transactional(readOnly = true)
     public List<CoffeeMachineStatusSummary> summarize(final TelemetryEventFilter filter) {
-        return repository.getMachineEventsSummary(
+        return repository.getCoffeeMachineSummary(
           filter.deviceId(), filter.getStartDate(), filter.getEndDate()
         );
     }
