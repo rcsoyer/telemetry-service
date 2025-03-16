@@ -3,11 +3,11 @@ spring:
     properties:
       hibernate:
         generate_statistics: true
-        show_sql: true
+    show-sql: true
 
 logging:
   level:
     root: INFO
-    com.zaxxer.hikari.HikariConfig: INFO
-    org.hibernate.SQL: INFO
-    org.testcontainers: INFO
+#    com.zaxxer.hikari.HikariConfig: INFO
+#    org.hibernate.SQL: INFO
+#    org.testcontainers: INFO
