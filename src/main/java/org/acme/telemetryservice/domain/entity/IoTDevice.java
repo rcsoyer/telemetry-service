@@ -17,9 +17,9 @@ import org.hibernate.annotations.NaturalId;
 import static jakarta.persistence.EnumType.STRING;
 import static java.util.UUID.randomUUID;
 import static lombok.AccessLevel.PROTECTED;
-import static org.apache.commons.lang3.StringUtils.capitalize;
 import static org.apache.commons.lang3.StringUtils.isNoneBlank;
 import static org.apache.commons.lang3.StringUtils.normalizeSpace;
+import static org.apache.commons.text.WordUtils.capitalize;
 import static org.hibernate.annotations.CacheConcurrencyStrategy.READ_WRITE;
 
 /**
