@@ -35,7 +35,8 @@ class CoffeeMachineController {
         schema = @Schema(implementation = Problem.class)))
     List<CoffeeMachineStatusSummary> getTotalCoffeesMade(
       final CoffeeMachineTelemetryEventFilter filter) {
-        log.debug("Rest API call to register a new Account");
+        log.debug("REST API call to get summary information about a coffee machine. filter={}",
+                  filter);
         return service.summarize(filter);
     }
 }
