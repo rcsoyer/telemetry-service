@@ -3,12 +3,16 @@ package org.acme.telemetryservice.infrastructure.repository;
 import java.time.Instant;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Stream;
 import org.acme.telemetryservice.domain.dto.query.CoffeeMachineStatusSummary;
 import org.acme.telemetryservice.domain.entity.CoffeeMachineTelemetryEvent;
 import org.acme.telemetryservice.domain.entity.IoTDevice;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.util.ReflectionTestUtils;
 
@@ -101,12 +105,14 @@ class CoffeeMachineTelemetryRepositoryTest extends BaseRepositoryTest {
               );
         }
 
-        @Test
-        void getMachineEventsSummary_deviceIdFilter() {
+        @ParameterizedTest
+        @MethodSource("providePeriodDates")
+        void getMachineEventsSummary_deviceIdFilter(final Instant startDate,
+                                                    final Instant endDate) {
             final UUID deviceId = sourceCoffeeMachine.getDeviceId();
 
             final List<CoffeeMachineStatusSummary> result =
-              repository.getMachineEventsSummary(deviceId, null, null);
+              repository.getMachineEventsSummary(deviceId, startDate, endDate);
 
             assertThat(result)
               .hasSize(2)
@@ -122,6 +128,14 @@ class CoffeeMachineTelemetryRepositoryTest extends BaseRepositoryTest {
                     .hasFieldOrPropertyWithValue("deviceStatus", ERROR)
                     .hasFieldOrPropertyWithValue("totalCount", 1)
               );
+        }
+
+        private static Stream<Arguments> providePeriodDates() {
+            return Stream.of(
+              Arguments.of(null, null),
+              Arguments.of(Instant.parse("2025-01-01T10:15:30.00Z"), null),
+              Arguments.of(null, Instant.parse("2025-01-01T10:15:30.00Z"))
+            );
         }
 
     }

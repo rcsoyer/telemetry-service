@@ -23,7 +23,7 @@ public interface CoffeeMachineTelemetryRepository
              + "WHERE telemetryEvent.sourceDevice.deviceId = :deviceId "
              + "AND telemetryEvent.status IN ('READY', 'ERROR') "
              + "AND ((cast(:startDate as timestamp) is null "
-             + "AND cast(:endDate as timestamp) is null) "
+             + "OR cast(:endDate as timestamp) is null) "
              + "OR telemetryEvent.createdAt BETWEEN :startDate AND :endDate) "
              + "GROUP BY telemetryEvent.sourceDevice.deviceId, telemetryEvent.status")
     List<CoffeeMachineStatusSummary> getMachineEventsSummary(
