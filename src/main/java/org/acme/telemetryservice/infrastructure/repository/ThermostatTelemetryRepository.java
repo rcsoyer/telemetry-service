@@ -3,6 +3,7 @@ package org.acme.telemetryservice.infrastructure.repository;
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 import java.time.Instant;
+import java.util.Optional;
 import java.util.UUID;
 import org.acme.telemetryservice.domain.dto.query.ThermostatSummary;
 import org.acme.telemetryservice.domain.entity.ThermostatTelemetryEvent;
@@ -28,7 +29,7 @@ public interface ThermostatTelemetryRepository
              + "OR cast(:endDate as timestamp) is null) "
              + "OR telemetryEvent.createdAt BETWEEN :startDate AND :endDate) "
              + "GROUP BY telemetryEvent.sourceDevice.deviceId")
-    ThermostatSummary getMachineEventsSummary(
+    Optional<ThermostatSummary> getMachineEventsSummary(
       @Nonnull @Param("deviceId") UUID deviceId,
       @Nullable @Param("startDate") Instant startDate,
       @Nullable @Param("endDate") Instant endDate);
