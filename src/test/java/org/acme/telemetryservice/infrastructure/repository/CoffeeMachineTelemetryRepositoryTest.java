@@ -16,6 +16,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.util.ReflectionTestUtils;
 
+import static java.util.UUID.randomUUID;
 import static org.acme.telemetryservice.domain.entity.CoffeeMachineTelemetryEvent.DeviceStatus.ERROR;
 import static org.acme.telemetryservice.domain.entity.CoffeeMachineTelemetryEvent.DeviceStatus.IN_PROGRESS;
 import static org.acme.telemetryservice.domain.entity.CoffeeMachineTelemetryEvent.DeviceStatus.READY;
@@ -103,6 +104,14 @@ class CoffeeMachineTelemetryRepositoryTest extends BaseRepositoryTest {
                     .hasFieldOrPropertyWithValue("deviceStatus", ERROR)
                     .hasFieldOrPropertyWithValue("totalCount", 1)
               );
+        }
+
+        @Test
+        void getMachineEventsSummary_nothingFoundByDeviceId() {
+            final List<CoffeeMachineStatusSummary> result =
+              repository.getMachineEventsSummary(randomUUID(), null, null);
+
+            assertThat(result).isEmpty();
         }
 
         @ParameterizedTest
