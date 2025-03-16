@@ -18,6 +18,10 @@ spring:
       enabled: true
   liquibase:
     change-log: classpath:/db/changelog/changelog-master.yml
+  datasource:
+    hikari:
+      minimum-idle: 10
+      maximum-pool-size: 20
   jpa:
     open-in-view: false
     hibernate:
