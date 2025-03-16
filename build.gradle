@@ -30,6 +30,7 @@ ext {
     problemJacksonVersion = '0.27.1'
     jjwtVersion = '0.12.6'
     springdocVersion = '2.8.5'
+    apacheCommonsTextVersion = '1.13.0'
 }
 
 dependencies {
@@ -40,6 +41,7 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
     implementation 'org.springframework.kafka:spring-kafka'
     implementation 'org.apache.commons:commons-lang3'
+    implementation "org.apache.commons:commons-text:$apacheCommonsTextVersion"
     implementation "org.passay:passay:$passWayVersion"
     implementation "org.zalando:problem-spring-web:$problemVersion"
     implementation "org.zalando:jackson-datatype-problem:$problemJacksonVersion"
