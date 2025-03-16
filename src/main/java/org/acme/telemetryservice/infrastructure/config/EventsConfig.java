@@ -25,7 +25,8 @@ class EventsConfig {
     }
 
     @Bean
-    AuthenticationEventPublisher authenticationEventPublisher(final ApplicationEventPublisher applicationEventPublisher) {
+    AuthenticationEventPublisher authenticationEventPublisher(
+      final ApplicationEventPublisher applicationEventPublisher) {
         return new DefaultAuthenticationEventPublisher(applicationEventPublisher);
     }
 }
