@@ -18,4 +18,6 @@ public interface FridgeSummary {
     double getMaxTemperature();
 
     double getMinTemperature();
+
+    double getMedianTemperature();
 }
