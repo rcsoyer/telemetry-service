@@ -1,17 +1,24 @@
 package org.acme.telemetryservice;
 
-import org.springframework.boot.testcontainers.service.connection.ServiceConnection;
+import org.springframework.test.context.DynamicPropertyRegistry;
+import org.springframework.test.context.DynamicPropertySource;
 import org.testcontainers.containers.PostgreSQLContainer;
-import org.testcontainers.junit.jupiter.Container;
-import org.testcontainers.junit.jupiter.Testcontainers;
 
-@Testcontainers(parallel = true)
 public abstract class BaseTestContainer {
 
-    @Container
-    @ServiceConnection
-    static final PostgresContainer POSTGRES_CONTAINER =
-      new PostgresContainer().withReuse(true);
+    private static final PostgresContainer POSTGRES_CONTAINER;
+
+    static {
+        POSTGRES_CONTAINER = new PostgresContainer().withReuse(true);
+        POSTGRES_CONTAINER.start();
+    }
+
+    @DynamicPropertySource
+    public static void setDatasourceProperties(final DynamicPropertyRegistry registry) {
+        registry.add("spring.datasource.url", POSTGRES_CONTAINER::getJdbcUrl);
+        registry.add("spring.datasource.password", POSTGRES_CONTAINER::getPassword);
+        registry.add("spring.datasource.username", POSTGRES_CONTAINER::getUsername);
+    }
 
     private static class PostgresContainer extends PostgreSQLContainer<PostgresContainer> {
 
