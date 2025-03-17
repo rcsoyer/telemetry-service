@@ -11,7 +11,8 @@ import org.springframework.stereotype.Repository;
 public interface AccountRepository extends JpaRepository<Account, Long> {
 
     /**
-     * Query a projection of the data stored in the {@link Account} entity. <br/> It's aimed as a helper to load only the data needed by the Spring
+     * Query a projection of the data stored in the {@link Account} entity.
+     * <br/> It's aimed as a helper to load only the data needed by the Spring
      * Security to authenticate users.
      */
     @Query("SELECT account.principal.username AS username, " +
