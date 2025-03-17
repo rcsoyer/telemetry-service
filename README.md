@@ -71,7 +71,7 @@ The application then can be run in two ways:
 
 ## API Testing
 A postman collection is available in the project dev directory:
-[AccountRegistry postman collection](/dev/postman-collection/Account-Registry%20Service%20-%20API.postman_collection.json).
+[telemetry-service postman collection](dev/Telemetry-Service-API.postman_collection.json).
 
 This collection can simply be imported into Postman and used to test the API features exposed by
 the application.
