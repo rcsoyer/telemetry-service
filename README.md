@@ -96,10 +96,7 @@ The application provides an OpenAPI documentation for better integration with ot
 
 - **Register** - ````POST /accounts````
     - http://localhost:8080/swagger-ui/index.html#/account-controller/register
-    - Create a new client's Account wit a default Payments Bank Account linked to it;
-        - The Bank Account is created with a default balance of `0.00` and currency of client's
-          country;
-    - Only Netherlands and Belgium are supported at the moment;
+    - Create a new client's Account in the platform
     - Only legal age clients are allowed to register;
     - The username must be unique;
     - Upon successful registration, a default random secure password is generated and returned to
