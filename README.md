@@ -70,7 +70,8 @@ The application then can be run in two ways:
     - ```./gradlew bootRun --args='--spring.profiles.active=dev'```
 
 ### Step by step usage
-1. Create an Account with: http://localhost:8080/swagger-ui/index.html#/account-controller/register;
+1. Import the postman collection located in the /dev folder of the project;
+2. Create an Account with: http://localhost:8080/swagger-ui/index.html#/account-controller/register;
 2. Login with that Account via browser or via REST API (check the options under the "Featues");
 3. With a JWT at hand, now IoT Devices can be registered: http://localhost:8080/swagger-ui/index.html#/io-t-device-controller/register;
 4. After registering a device Kafka events can be published with a registered deviceId(the app generated UUID);
