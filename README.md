@@ -114,6 +114,7 @@ In the Kafka client producer specify for this topic:
 {
   "deviceId" : "UUID" //the UUID of a registered IoTDevice
   "temperature" : double //a numeric double value with the temperature
+  "humidity" : double //a numeric double value with the humidity
 }
 - header:
   - __TypeId__ : thermostatTelemetryEvent
