@@ -25,9 +25,7 @@ The minimum requirements to run the application are:
         - https://docs.docker.com/desktop/
 - If you run the application through an `IDE`, such as `IntelliJ IDEA`, you may need to enable
   annotation processing to support `Lombok` and `MapStruct`.
-- Run the docker compose file, in the /dev folder of this project, 
-to create the `Postgres` and `Kafka`  containers needed to run the application
-on Spring's dev profile.
+
 
 ## Building the application
 
@@ -54,10 +52,15 @@ The pipeline runs the following steps:
 The project provides an easy to use ``dev`` Spring profile:
 [application-dev.yml](src/main/resources/application-dev.yml).
 
-From that file, you can adjust the connection to a local MySQL database instance.
+From that file, you can adjust the connection to local Postgres and Kafka instances.
 
-Or you may simply run a MySQL instance in a Docker container with the expected url configuration
+Or you may simply run a Postgres and Kafka on a Docker container with the expected url configuration
 and credentials described in the file.
+
+### Docker compose
+- Run the docker compose file, in the /dev folder of this project,
+  to create the `Postgres` and `Kafka`  containers needed to run the application
+  on Spring's dev profile.
 
 The application then can be run in two ways:
 
