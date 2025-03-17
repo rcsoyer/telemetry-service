@@ -73,8 +73,8 @@ The application then can be run in two ways:
 1. Create an Account with: http://localhost:8080/swagger-ui/index.html#/account-controller/register;
 2. Login with that Account via browser or via REST API (check the options under the "Featues");
 3. With a JWT at hand, now IoT Devices can be registered: http://localhost:8080/swagger-ui/index.html#/io-t-device-controller/register;
-4. After registering a device Kafka events can be published;
-5. Use the APIs of different IoT Devices to view the summary data
+4. After registering a device Kafka events can be published with a registered deviceId(the app generated UUID);
+5. Use the APIs of different IoT Devices to view the summary data using the source deviceId
 
 #### Publish to Kafka topics
 The Kafka Topics are created automatically when the application runs.
