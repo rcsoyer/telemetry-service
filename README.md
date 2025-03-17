@@ -72,7 +72,52 @@ The application then can be run in two ways:
 ### Step by step usage
 1. Create an Account with: http://localhost:8080/swagger-ui/index.html#/account-controller/register;
 2. Login with that Account via browser or via REST API (check the options under the "Featues");
-3. With a JWT at hand, now IoT Devices can be registered
+3. With a JWT at hand, now IoT Devices can be registered: http://localhost:8080/swagger-ui/index.html#/io-t-device-controller/register;
+4. After registering a device Kafka events can be published;
+5. Use the APIs of different IoT Devices to view the summary data
+
+#### Publish to Kafka topics
+The Kafka Topics are created automatically when the application runs.
+In order to publish events to the topics it's needed a Kafka client.
+
+On IntelliJ IDEA, it's possible to use the Kafka plugin to connect to the local Kafka server,
+and get a Producer to publish events to the topics.
+
+There are 3 topics, one for each supported IoT Device type:
+1. fridgeEvents
+In the Kafka client producer specify for this topic:
+- key - type string: fridgeEvents
+- value - type json:
+{
+  "deviceId" : "UUID" //the UUID of a registered IoTDevice
+  "temperature" : double //a numeric double value with the temperature
+}
+- header: 
+  - __TypeId__ : fridgeTelemetryEvent
+
+2. coffeeMachineEvents
+   In the Kafka client producer specify for this topic:
+- key - type string: coffeeMachineEvents
+- value - type json:
+{
+  "deviceId" : "UUID" //the UUID of a registered IoTDevice
+  "status" : "READY | ERROR | IN_PROGRESS | IDLE" //an enum definition with allowed event values
+}
+- header:
+  - __TypeId__ : coffeeMachineTelemetryEvent
+
+
+3. thermostatEvents
+      In the Kafka client producer specify for this topic:
+- key - type string: thermostatEvents
+- value - type json:
+{
+  "deviceId" : "UUID" //the UUID of a registered IoTDevice
+  "temperature" : double //a numeric double value with the temperature
+}
+- header:
+  - __TypeId__ : thermostatTelemetryEvent
+
 
 ## API Testing
 A postman collection is available in the project dev directory:
