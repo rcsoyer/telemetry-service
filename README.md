@@ -89,10 +89,12 @@ There are 3 topics, one for each supported IoT Device type:
 In the Kafka client producer specify for this topic:
 - key - type string: fridgeEvents
 - value - type json:
+```json
 {
   "deviceId" : "UUID" //the UUID of a registered IoTDevice
   "temperature" : double //a numeric double value with the temperature
 }
+```
 - header: 
   - `__TypeId__` : fridgeTelemetryEvent
 
@@ -100,10 +102,12 @@ In the Kafka client producer specify for this topic:
    In the Kafka client producer specify for this topic:
 - key - type string: coffeeMachineEvents
 - value - type json:
+```json
 {
   "deviceId" : "UUID" //the UUID of a registered IoTDevice
   "status" : "READY | ERROR | IN_PROGRESS | IDLE" //an enum definition with allowed event values
 }
+```
 - header:
   - `__TypeId__` : coffeeMachineTelemetryEvent
 
@@ -112,11 +116,13 @@ In the Kafka client producer specify for this topic:
       In the Kafka client producer specify for this topic:
 - key - type string: thermostatEvents
 - value - type json:
+```json
 {
   "deviceId" : "UUID" //the UUID of a registered IoTDevice
   "temperature" : double //a numeric double value with the temperature
   "humidity" : double //a numeric double value with the humidity
 }
+```
 - header:
   - `__TypeId__` : thermostatTelemetryEvent
 
