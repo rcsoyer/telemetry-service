@@ -69,6 +69,11 @@ The application then can be run in two ways:
 - through the command line
     - ```./gradlew bootRun --args='--spring.profiles.active=dev'```
 
+### Step by step usage
+1. Create an Account with: http://localhost:8080/swagger-ui/index.html#/account-controller/register;
+2. Login with that Account via browser or via REST API (check the options under the "Featues");
+3. With a JWT at hand, now IoT Devices can be registered
+
 ## API Testing
 A postman collection is available in the project dev directory:
 [telemetry-service postman collection](dev/Telemetry-Service-API.postman_collection.json).
