@@ -81,8 +81,13 @@ The application then can be run in two ways:
 The Kafka Topics are created automatically when the application runs.
 In order to publish events to the topics it's needed a Kafka client.
 
-On IntelliJ IDEA, it's possible to use the Kafka plugin to connect to the local Kafka server,
-and get a Producer to publish events to the topics.
+On IntelliJ IDEA, it's possible to use the Big Data Tools to connect to a Message broker.
+In this case the local Kafka Broker from which get a Producer and publish events to the topics.
+To configure the Kafka Broker set the following in the Big Data Tools:
+- Enable connection: check the box
+- Bootstrap servers: 127.0.0.1:9092
+- Authentication: none
+
 
 There are 3 topics, one for each supported IoT Device type:
 1. fridgeEvents
