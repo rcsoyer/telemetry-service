@@ -93,7 +93,7 @@ In the Kafka client producer specify for this topic:
   "temperature" : double //a numeric double value with the temperature
 }
 - header: 
-  - __TypeId__ : fridgeTelemetryEvent
+  - `__TypeId__` : fridgeTelemetryEvent
 
 2. coffeeMachineEvents
    In the Kafka client producer specify for this topic:
@@ -104,7 +104,7 @@ In the Kafka client producer specify for this topic:
   "status" : "READY | ERROR | IN_PROGRESS | IDLE" //an enum definition with allowed event values
 }
 - header:
-  - __TypeId__ : coffeeMachineTelemetryEvent
+  - `__TypeId__` : coffeeMachineTelemetryEvent
 
 
 3. thermostatEvents
@@ -117,7 +117,7 @@ In the Kafka client producer specify for this topic:
   "humidity" : double //a numeric double value with the humidity
 }
 - header:
-  - __TypeId__ : thermostatTelemetryEvent
+  - `__TypeId__` : thermostatTelemetryEvent
 
 
 ## API Testing
