@@ -60,7 +60,9 @@ public class Account extends BaseAuditEntity {
             final boolean isAdult = personsAge >= 18;
 
             if (!isAdult) {
-                throw new ResponseStatusException(BAD_REQUEST, "The person must be an adult to open an account");
+                throw new ResponseStatusException(
+                  BAD_REQUEST,
+                  "The person must be an adult to open an account");
             }
         }
 
