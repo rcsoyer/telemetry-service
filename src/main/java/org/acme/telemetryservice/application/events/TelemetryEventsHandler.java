@@ -10,6 +10,7 @@ import org.acme.telemetryservice.domain.service.CoffeeMachineTelemetryService;
 import org.acme.telemetryservice.domain.service.FridgeTelemetryService;
 import org.acme.telemetryservice.domain.service.ThermostatTelemetryService;
 import org.springframework.kafka.annotation.KafkaListener;
+import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.stereotype.Component;
 
 @Slf4j
@@ -22,19 +23,19 @@ class TelemetryEventsHandler {
     private final ThermostatTelemetryService thermostatTelemetryService;
 
     @KafkaListener(topics = "fridgeEvents")
-    void fridgeTelemetryEventHandler(@Valid final FridgeTelemetryData event) {
+    void fridgeTelemetryEventHandler(@Payload @Valid final FridgeTelemetryData event) {
         log.info("fridge telemetry event={}", event);
         fridgeTelemetryService.createTelemetryEvent(event);
     }
 
     @KafkaListener(topics = "coffeeMachineEvents")
-    void coffeeMachineTelemetryEventHandler(@Valid final CoffeeMachineTelemetryData event) {
+    void coffeeMachineTelemetryEventHandler(@Payload @Valid final CoffeeMachineTelemetryData event) {
         log.info("coffee machine telemetry event={}", event);
         coffeeMachineTelemetryService.createTelemetryEvent(event);
     }
 
     @KafkaListener(topics = "thermostatEvents")
-    void thermostatTelemetryEventHandler(@Valid final ThermostatTelemetryData event) {
+    void thermostatTelemetryEventHandler(@Payload @Valid final ThermostatTelemetryData event) {
         log.info("Thermostat telemetry event={}", event);
         thermostatTelemetryService.createTelemetryEvent(event);
     }
