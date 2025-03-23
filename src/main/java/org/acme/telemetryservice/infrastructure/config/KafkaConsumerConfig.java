@@ -94,6 +94,12 @@ class KafkaConsumerConfig implements KafkaListenerConfigurer {
         registrar.setValidator(validator);
     }
 
+    /**
+     * MultiType implementation that overrides the type limitations of the super class
+     * {@link JsonMessageConverter#extractAndConvertValue(ConsumerRecord, Type)}.
+     * <p/> With this simple custom implementation, the topic listener methods,
+     * can properly convert its parameters.
+     */
     private static class MultiTypeJsonMessageConverter extends JsonMessageConverter {
 
         private MultiTypeJsonMessageConverter(final ObjectMapper objectMapper) {
