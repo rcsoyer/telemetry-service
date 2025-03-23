@@ -103,8 +103,9 @@ class KafkaConsumerConfig implements KafkaListenerConfigurer {
         @Override
         protected Object extractAndConvertValue(final ConsumerRecord<?, ?> record,
                                                 final Type type) {
-            final JavaType javaType = getObjectMapper().constructType(type);
-            return getObjectMapper().convertValue(record.value(), javaType);
+            final ObjectMapper objectMapper = getObjectMapper();
+            final JavaType javaType = objectMapper.constructType(type);
+            return objectMapper.convertValue(record.value(), javaType);
         }
     }
 }
