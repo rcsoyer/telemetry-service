@@ -92,7 +92,6 @@ To configure the Kafka Broker set the following in the Big Data Tools:
 There are 3 topics, one for each supported IoT Device type:
 1. fridgeEvents
 In the Kafka client producer specify for this topic:
-- key - type string: fridgeTelemetryEvent
 - value - type json:
 ```json
 {
@@ -103,7 +102,6 @@ In the Kafka client producer specify for this topic:
 
 2. coffeeMachineEvents
    In the Kafka client producer specify for this topic:
-- key - type string: coffeeMachineTelemetryEvent
 - value - type json:
 ```json
 {
@@ -114,7 +112,6 @@ In the Kafka client producer specify for this topic:
 
 3. thermostatEvents
       In the Kafka client producer specify for this topic:
-- key - type string: thermostatTelemetryEvent
 - value - type json:
 ```json
 {
