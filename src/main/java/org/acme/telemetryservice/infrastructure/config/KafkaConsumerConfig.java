@@ -85,7 +85,8 @@ class KafkaConsumerConfig implements KafkaListenerConfigurer {
         return new DefaultKafkaConsumerFactory<>(
           configs,
           new StringDeserializer(),
-          new ErrorHandlingDeserializer<>(deserializer));
+          new ErrorHandlingDeserializer<>(deserializer)
+        );
     }
 
     @Bean
