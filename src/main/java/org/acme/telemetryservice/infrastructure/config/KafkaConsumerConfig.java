@@ -1,38 +1,27 @@
 package org.acme.telemetryservice.infrastructure.config;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JavaType;
-import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.type.TypeFactory;
-import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 import lombok.RequiredArgsConstructor;
-import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
-import org.apache.kafka.common.serialization.ByteArrayDeserializer;
 import org.apache.kafka.common.serialization.StringDeserializer;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.kafka.KafkaProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.task.AsyncTaskExecutor;
-import org.springframework.data.convert.TypeMapper;
 import org.springframework.kafka.annotation.EnableKafka;
 import org.springframework.kafka.annotation.KafkaListenerConfigurer;
 import org.springframework.kafka.config.ConcurrentKafkaListenerContainerFactory;
 import org.springframework.kafka.config.KafkaListenerEndpointRegistrar;
 import org.springframework.kafka.core.ConsumerFactory;
 import org.springframework.kafka.core.DefaultKafkaConsumerFactory;
-import org.springframework.kafka.support.converter.ByteArrayJsonMessageConverter;
 import org.springframework.kafka.support.converter.JsonMessageConverter;
 import org.springframework.kafka.support.converter.RecordMessageConverter;
 import org.springframework.kafka.support.mapping.DefaultJackson2JavaTypeMapper;
-import org.springframework.kafka.support.mapping.Jackson2JavaTypeMapper;
-import org.springframework.kafka.support.mapping.Jackson2JavaTypeMapper.TypePrecedence;
 import org.springframework.kafka.support.serializer.ErrorHandlingDeserializer;
 import org.springframework.kafka.support.serializer.JsonDeserializer;
 import org.springframework.validation.Validator;
@@ -51,13 +40,14 @@ import static org.springframework.kafka.support.serializer.JsonDeserializer.VALU
 @RequiredArgsConstructor
 class KafkaConsumerConfig implements KafkaListenerConfigurer {
 
+    private static final String EVENTS_PACKAGE = "org.acme.telemetryservice.domain.dto.command";
+
     private final Validator validator;
 
     @Bean
     RecordMessageConverter multiTypeConverter(final ObjectMapper objectMapper) {
         final var typeMapper = new DefaultJackson2JavaTypeMapper();
-        typeMapper.addTrustedPackages("org.acme.telemetryservice.domain.dto.command");
-        //typeMapper.setUseForKey(true);
+        typeMapper.addTrustedPackages(EVENTS_PACKAGE);
         final var messageConverter = new MultiTypeJsonMessageConverter(objectMapper);
         messageConverter.setTypeMapper(typeMapper);
         return messageConverter;
@@ -71,22 +61,12 @@ class KafkaConsumerConfig implements KafkaListenerConfigurer {
         configs.put(BOOTSTRAP_SERVERS_CONFIG, properties.getBootstrapServers());
         configs.put(GROUP_ID_CONFIG, "telemetryGroup");
         configs.put(AUTO_OFFSET_RESET_CONFIG, "earliest");
-        configs.put(TRUSTED_PACKAGES, "org.acme.telemetryservice.domain.dto.command");
+        configs.put(TRUSTED_PACKAGES, EVENTS_PACKAGE);
         configs.put(VALUE_DEFAULT_TYPE, "java.lang.Object");
-        //  configs.put(VALUE_DESERIALIZER_CLASS_CONFIG, ErrorHandlingDeserializer.class);
         configs.put(USE_TYPE_INFO_HEADERS, false);
         configs.put(REMOVE_TYPE_INFO_HEADERS, true);
-        /*configs.put(
-          TYPE_MAPPINGS,
-          "fridgeTelemetryEvent:org.acme.telemetryservice.domain.dto.command.FridgeTelemetryData,"
-            + "coffeeMachineTelemetryEvent:org.acme.telemetryservice.domain.dto.command.CoffeeMachineTelemetryData,"
-            + "thermostatTelemetryEvent:org.acme.telemetryservice.domain.dto.command.ThermostatTelemetryData");
-        */
-        // deserializer.configure(properties.buildConsumerProperties(), false);
+
         final var deserializer = new JsonDeserializer<>(objectMapper);
-        // deserializer.setTypeMapper(typeMapper);
-        //   deserializer.setUseTypeHeaders(false);
-        // deserializer.configure(configs, true);
         return new DefaultKafkaConsumerFactory<>(
           configs,
           new StringDeserializer(),
@@ -114,46 +94,17 @@ class KafkaConsumerConfig implements KafkaListenerConfigurer {
         registrar.setValidator(validator);
     }
 
-
-/*    private static class NoHeaderJsonDeserializer<T> extends JsonDeserializer<T> {
-
-        private NoHeaderJsonDeserializer(final ObjectMapper objectMapper,
-                                         final Jackson2JavaTypeMapper typeMapper) {
-            super((Class<T>) null, objectMapper, false);
-            setRemoveTypeHeaders(true);
-            setUseTypeHeaders(false);
-            setUseTypeMapperForKey(false);
-            setTypeMapper(typeMapper);
-        }
-    }*/
-
-    private static class MultiTypeJsonMessageConverter extends ByteArrayJsonMessageConverter {
+    private static class MultiTypeJsonMessageConverter extends JsonMessageConverter {
 
         private MultiTypeJsonMessageConverter(final ObjectMapper objectMapper) {
             super(objectMapper);
         }
 
         @Override
-  /*      @SneakyThrows({JsonMappingException.class, JsonProcessingException.class,
-          IOException.class})*/
         protected Object extractAndConvertValue(final ConsumerRecord<?, ?> record,
                                                 final Type type) {
-            final JavaType javaType = determineJavaType(record, type);
-         //   final var recordValue = (LinkedHashMap<?, ?>) record.value();
-
+            final JavaType javaType = getObjectMapper().constructType(type);
             return getObjectMapper().convertValue(record.value(), javaType);
-        }
-
-        private JavaType determineJavaType(ConsumerRecord<?, ?> record, Type type) {
-            JavaType javaType = getTypeMapper().getTypePrecedence().equals(TypePrecedence.INFERRED) && type != null
-                                  ? TypeFactory.defaultInstance().constructType(type)
-                                  : getTypeMapper().toJavaType(record.headers());
-            if (javaType == null) { // no headers
-                if (type != null) {
-                    javaType = TypeFactory.defaultInstance().constructType(type);
-                }
-            }
-            return javaType;
         }
     }
 }
