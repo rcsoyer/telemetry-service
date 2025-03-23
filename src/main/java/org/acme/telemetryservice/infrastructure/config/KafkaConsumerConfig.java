@@ -44,13 +44,28 @@ class KafkaConsumerConfig implements KafkaListenerConfigurer {
 
     private final Validator validator;
 
+    /**
+     * MultiType implementation that overrides the type limitations of the super class:
+     * {@link JsonMessageConverter#extractAndConvertValue(ConsumerRecord, Type)}.
+     * <p/> With this simple custom implementation, the topic listener methods,
+     * can properly convert its parameters.
+     */
     @Bean
     RecordMessageConverter multiTypeConverter(final ObjectMapper objectMapper) {
-        final var typeMapper = new DefaultJackson2JavaTypeMapper();
-        typeMapper.addTrustedPackages(EVENTS_PACKAGE);
-        final var messageConverter = new MultiTypeJsonMessageConverter(objectMapper);
-        messageConverter.setTypeMapper(typeMapper);
-        return messageConverter;
+        return new JsonMessageConverter(objectMapper) {
+            {
+                final var typeMapper = new DefaultJackson2JavaTypeMapper();
+                typeMapper.addTrustedPackages(EVENTS_PACKAGE);
+                setTypeMapper(typeMapper);
+            }
+
+            @Override
+            protected Object extractAndConvertValue(final ConsumerRecord<?, ?> record,
+                                                    final Type type) {
+                final JavaType javaType = getObjectMapper().constructType(type);
+                return getObjectMapper().convertValue(record.value(), javaType);
+            }
+        };
     }
 
     @Bean
@@ -92,25 +107,5 @@ class KafkaConsumerConfig implements KafkaListenerConfigurer {
     @Override
     public void configureKafkaListeners(final KafkaListenerEndpointRegistrar registrar) {
         registrar.setValidator(validator);
-    }
-
-    /**
-     * MultiType implementation that overrides the type limitations of the super class
-     * {@link JsonMessageConverter#extractAndConvertValue(ConsumerRecord, Type)}.
-     * <p/> With this simple custom implementation, the topic listener methods,
-     * can properly convert its parameters.
-     */
-    private static class MultiTypeJsonMessageConverter extends JsonMessageConverter {
-
-        private MultiTypeJsonMessageConverter(final ObjectMapper objectMapper) {
-            super(objectMapper);
-        }
-
-        @Override
-        protected Object extractAndConvertValue(final ConsumerRecord<?, ?> record,
-                                                final Type type) {
-            final JavaType javaType = getObjectMapper().constructType(type);
-            return getObjectMapper().convertValue(record.value(), javaType);
-        }
     }
 }
