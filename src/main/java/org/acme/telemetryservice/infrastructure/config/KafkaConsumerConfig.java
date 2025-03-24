@@ -21,7 +21,6 @@ import org.springframework.kafka.core.ConsumerFactory;
 import org.springframework.kafka.core.DefaultKafkaConsumerFactory;
 import org.springframework.kafka.support.converter.JsonMessageConverter;
 import org.springframework.kafka.support.converter.RecordMessageConverter;
-import org.springframework.kafka.support.mapping.DefaultJackson2JavaTypeMapper;
 import org.springframework.kafka.support.serializer.ErrorHandlingDeserializer;
 import org.springframework.kafka.support.serializer.JsonDeserializer;
 import org.springframework.validation.Validator;
@@ -54,9 +53,7 @@ class KafkaConsumerConfig implements KafkaListenerConfigurer {
     RecordMessageConverter multiTypeConverter(final ObjectMapper objectMapper) {
         return new JsonMessageConverter(objectMapper) {
             {
-                final var typeMapper = new DefaultJackson2JavaTypeMapper();
-                typeMapper.addTrustedPackages(EVENTS_PACKAGE);
-                setTypeMapper(typeMapper);
+                getTypeMapper().addTrustedPackages(EVENTS_PACKAGE);
             }
 
             @Override
